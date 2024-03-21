@@ -1,87 +1,289 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Mi Sitio Web</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/home.css">
-   
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/home.css" />
+  <title>Seguimiento y Reservas de Vuelos | AeroInfo</title>
 </head>
 
 <body>
+  <nav>
+    <div class="nav__logo">AeroInfo</div>
+    <ul class="nav__links">
+      <li class="link"><a href="#">Inicio</a></li>
+      <li class="link"><a href="#">Reservas</a></li>
+      <li class="link"><a href="vuelos.html">Seguimiento de vuelo</a></li>
+      <li class="link"><a href="#">Tripulación</a></li>
+      <li class="link"><a href="#">Destinos</a></li>
+    </ul>
+    <button class="btn" onclick="window.location.href = 'Inicio_Registro.html';">Salir</button>
+  </nav>
+  <header class="section__container header__container">
+    <h1 class="section__header">Encuentra y Reserva<br />Una Gran Experiencia</h1>
+    <img src="assets/imagenes/header.jpg" alt="header" />
+  </header>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg  ">
-        <a class="navbar-brand text-white" href="#"><i class="bi bi-airplane">AeroInfo</i></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-house">Inicio</i> <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-ticket-perforated">Tiquetes</i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-person">Perfil</i></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Jumbotron -->
-    <div class="jumbotron">
-        <h1 class="display-4 ">Bienvenido a AeroInfo</h1>
-        <p>Donde conviertes tus sueños en realidad!</p>
-        <a class="btn btn-info btn-lg" href="vuelos.html" role="button"><i class="bi bi-search">Buscar Vuelos</i></a>
+  <section class="section__container booking__container">
+    <div class="booking__nav">
+      <span>Clase Económica</span>
+      <span>Clase Business</span>
+      <span>Primera Clase</span>
     </div>
+    <form>
+      <div class="form__group">
+        <span><i class="ri-map-pin-line"></i></span>
+        <div class="input__content">
+          <div class="input__group">
+            <input type="text" />
+            <label>Ubicación</label>
+          </div>
+          <p>¿A dónde vas?</p>
+        </div>
+      </div>
+      <div class="form__group">
+        <span><i class="ri-user-3-line"></i></span>
+        <div class="input__content">
+          <div class="input__group">
+            <input type="number" />
+            <label>Pasajeros</label>
+          </div>
+          <p>Agregar pasajeros</p>
+        </div>
+      </div>
+      <div class="form__group">
+        <span><i class="ri-calendar-line"></i></span>
+        <div class="input__content">
+          <div class="input__group">
+            <input type="text" />
+            <label>Salida</label>
+          </div>
+          <p>Agregar fecha</p>
+        </div>
+      </div>
+      <div class="form__group">
+        <span><i class="ri-calendar-line"></i></span>
+        <div class="input__content">
+          <div class="input__group">
+            <input type="text" />
+            <label>Regreso</label>
+          </div>
+          <p>Agregar fecha</p>
+        </div>
+      </div>
+      <button class="btn"><i class="ri-search-line"></i></button>
+    </form>
+  </section>
 
-    <!-- Contenido de características -->
-    <div class="container">
-        <div class="location text-center">
-            <h3 ><i class="bi bi-geo-alt-fill">Location</i></h3>
-            <p> San José, Costa Rica</p>
-        </div>
-       
-        <div class="row">
-            <div class="col-md-4">
-                <div class="feature-box">
-                    <img src="assets/imagenes/Imagen1.jpg" class="img-fluid my-3">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-box">
-                    <img src="assets/imagenes/Imagen2.jpg" class="img-fluid my-3">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-box">
-                    <img src="assets/imagenes/Imagen3.jpg" class="img-fluid my-3">
-                </div>
-            </div>
-        </div>
+  <section class="section__container plan__container">
+    <p class="subheader">APOYO DE VIAJE</p>
+    <h2 class="section__header">Planifica tu viaje con confianza</h2>
+    <p class="description">
+      Encuentra ayuda con tus reservas y planes de viaje, y descubre qué
+      esperar en tu viaje.
+    </p>
+    <div class="plan__grid">
+      <div class="plan__content">
+        <span class="number">01</span>
+        <h4>Reserva tus vuelos</h4>
+        <p>
+          Disfruta de una experiencia de reserva sin complicaciones y viaja con la tranquilidad de 
+          saber que estamos aquí para atender todas tus necesidades. ¡Haz de tus viajes una experiencia
+          memorable con AeroInfo!
+        </p>
+        <span class="number">02</span>
+        <h4>Haz un Tracking de tus vuelos y equipaje</h4>
+        <p>
+        ¡Realiza un seguimiento de tus vuelos y equipaje de manera fácil y conveniente con AeroInfo! Con nuestra herramienta de 
+        seguimiento integrada, puedes monitorear el estado de tus vuelos en tiempo real y asegurarte de que tu equipaje llegue junto contigo. 
+        Viaja con tranquilidad sabiendo que estamos aquí para brindarte toda la información que necesitas para un viaje sin preocupaciones. 
+        ¡Confía en AeroInfo para un seguimiento confiable y sin complicaciones!
+        </p>
+        <span class="number">03</span>
+        <h4>Conoce a nuestros profesionales</h4>
+        <p>
+          ¡Descubre a nuestros profesionales y sumérgete en el estilo de la aerolínea en AeroInfo! Conocer a nuestra tripulación te brinda una 
+          experiencia más personalizada y te permite familiarizarte con el equipo que te acompañará en tu viaje. Desde la sonrisa cálida de nuestros
+           asistentes de vuelo hasta la profesionalidad de nuestros pilotos, queremos que te sientas como en casa desde el momento en que abordes nuestra 
+           aeronave. Con AeroInfo, no solo vuelas, ¡experimentas un viaje inolvidable con personas que realmente se preocupan por tu comodidad y seguridad!
+        </p>
+      </div>
+      <div class="plan__image">
+        <img src="assets/imagenes/plan-1.jpg" alt="plan" />
+        <img src="assets/imagenes/plan-2.jpg" alt="plan" />
+        <img src="assets/imagenes/plan-3.jpg" alt="plan" />
+      </div>
     </div>
+  </section>
 
-</html>
+  <section class="memories">
+    <div class="section__container memories__container">
+      <div class="memories__header">
+        <h2 class="section__header">
+          Viaja para crear recuerdos en todo el mundo
+        </h2>
+        <button class="view__all">Ver Todos</button>
+      </div>
+      <div class="memories__grid">
+        <div class="memories__card">
+          <span><i class="ri-calendar-2-line"></i></span>
+          <h4>Reserva y relájate</h4>
+          <p>
+            Con "Reserva y Relájate", puedes sentarte, relajarte y disfrutar
+            del viaje mientras nosotros nos encargamos de todo lo demás.
+          </p>
+        </div>
+        <div class="memories__card">
+          <span><i class="ri-shield-check-line"></i></span>
+          <h4>Lista de verificación inteligente</h4>
+          <p>
+            Presentamos la Lista de Verificación Inteligente, la solución
+            innovadora que revoluciona la forma en que viajas con nuestra
+            aerolínea.
+          </p>
+        </div>
+        <div class="memories__card">
+          <span><i class="ri-bookmark-2-line"></i></span>
+          <h4>Ahorra Más</h4>
+          <p>
+            Desde precios de billetes con descuento hasta promociones y ofertas
+            exclusivas, priorizamos la asequibilidad sin comprometer la
+            calidad.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- Footer -->
-<footer class="footer text-center text-white py-4">
-    <p>&copy; 2024 AeroInfo. Todos los derechos reservados.</p>
-</footer>
+  <section class="section__container lounge__container">
+    <div class="lounge__image">
+      <img src="assets/imagenes/AeroSJO1.jpg" alt="lounge"/>
+      <img src="assets/imagenes/AIRPORTSJO2.jpg" alt="lounge" />
+    </div>
+    <div class="lounge__content">
+      <h2 class="section__header">Aeropuerto Juan Santamaría-San José</h2>
+      <div class="lounge__grid">
+        <div class="lounge__details">
+          <h4>Ubicación</h4>
+          <p>
+            El Aeropuerto Internacional Juan Santamaría es el aeropuerto principal que presta servicios a San José, la capital de Costa Rica. 
+            El aeropuerto está ubicado a 2 km sur de la ciudad de Alajuela, y a 17 km al oeste del centro de San José.
+          </p>
+        </div>
+        <div class="lounge__details">
+          <h4>Sus objetivos</h4>
+          <p>
+            El Aeropuerto Internacional Juan Santamaría, ubicado en Costa Rica, tiene como objetivo principal facilitar la conexión del país con el mundo, 
+            sirviendo como puerta de entrada para viajeros internacionales y contribuyendo al desarrollo económico y turístico de la región.
+          </p>
+        </div>
+        <div class="lounge__details">
+          <h4>Sus metas</h4>
+          <p>
+            Las metas del Aeropuerto Internacional Juan Santamaría incluyen proporcionar servicios de alta calidad, promover la eficiencia operativa, garantizar
+             la seguridad de los pasajeros y fomentar el crecimiento sostenible de la aviación en Costa Rica.
+          </p>
+        </div>
+        <div class="lounge__details">
+          <h4>Sus fortalezas</h4>
+          <p>
+            Las fortalezas del Aeropuerto Internacional Juan Santamaría incluyen su ubicación estratégica como principal terminal aérea de Costa Rica, su infraestructura 
+            moderna y bien mantenida, sus altos estándares de seguridad, su eficiencia operativa y sus servicios de calidad para pasajeros y aerolíneas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- Bootstrap JS, colocarlo al final para una carga más rápida -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <section class="section__container travellers__container">
+    <h2 class="section__header">Mejores viajeros del mes</h2>
+    <div class="travellers__grid">
+      <div class="travellers__card">
+        <img src="assets/imagenes/traveller-1.jpg" alt="traveller" />
+        <div class="travellers__card__content">
+          <img src="assets/imagenes/client-1.jpg" alt="client" />
+          <h4>Emily Johnson</h4>
+          <p>Dubai</p>
+        </div>
+      </div>
+      <div class="travellers__card">
+        <img src="assets/imagenes/traveller-2.jpg" alt="traveller" />
+        <div class="travellers__card__content">
+          <img src="assets/imagenes/client-2.jpg" alt="client" />
+          <h4>David Smith</h4>
+          <p>París</p>
+        </div>
+      </div>
+      <div class="travellers__card">
+        <img src="assets/imagenes/traveller-3.jpg" alt="traveller" />
+        <div class="travellers__card__content">
+          <img src="assets/imagenes/client-3.jpg" alt="client" />
+          <h4>Olivia Brown</h4>
+          <p>Singapur</p>
+        </div>
+      </div>
+      <div class="travellers__card">
+        <img src="assets/imagenes/traveller-4.jpg" alt="traveller" />
+        <div class="travellers__card__content">
+          <img src="assets/imagenes/client-4.jpg" alt="client" />
+          <h4>Daniel Taylor</h4>
+          <p>Malasia</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section class="subscribe">
+    <div class="section__container subscribe__container">
+      <h2 class="section__header">Suscríbete al boletín y recibe las últimas noticias</h2>
+      <form class="subscribe__form">
+        <input type="text" placeholder="Ingresa tu correo electrónico aquí" />
+        <button class="btn">Suscribirse</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <h3>AeroInfo</h3>
+        <p>
+          Donde la excelencia despega. Con un fuerte compromiso con la
+          satisfacción del cliente y una pasión por los viajes aéreos, AeroInfo
+          ofrece un servicio excepcional y viajes sin problemas.
+        </p>
+        <p>
+          Desde sonrisas amigables hasta aviones de última generación,
+          conectamos el mundo, garantizando experiencias seguras, cómodas e
+          inolvidables.
+        </p>
+      </div>
+      <div class="footer__col">
+        <h4>INFORMACIÓN</h4>
+        <p>Inicio</p>
+        <p>Acerca de</p>
+        <p>Ofertas</p>
+        <p>Asientos</p>
+        <p>Destinos</p>
+      </div>
+      <div class="footer__col">
+        <h4>CONTACTO</h4>
+        <p>Soporte</p>
+        <p>Medios</p>
+        <p>Redes Sociales</p>
+      </div>
+    </div>
+    <div class="section__container footer__bar">
+      <p>Derechos de autor © 2024 AeroInfo. Todos los derechos reservados.</p>
+      <div class="socials">
+        <span><i class="ri-facebook-fill"></i></span>
+        <span><i class="ri-twitter-fill"></i></span>
+        <span><i class="ri-instagram-line"></i></span>
+        <span><i class="ri-youtube-fill"></i></span>
+      </div>
+    </div>
+  </footer>
 </body>
-
 </html>
