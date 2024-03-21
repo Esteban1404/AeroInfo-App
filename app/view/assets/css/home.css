@@ -1,0 +1,61 @@
+ /* Estilos personalizados */
+ body {
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 12px;
+    line-height: 30px;
+    
+    
+ }
+
+.jumbotron {
+    background-image: url('https://selecciones.com.mx/wp-content/uploads/2022/06/por-que-los-aviones-vuelan-a-esa-altura.jpg');
+    /* URL de tu imagen de fondo */
+    background-size:cover;
+   background-position: center;
+    text-align: center;
+    padding: 100px 25px;
+    margin-bottom: 0;
+    justify-content: space-around;
+    color:#00171f;
+    
+   
+}
+
+.feature-box {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin: 10%;
+    background-color: #00171f;
+    border-radius: 10px;
+     box-shadow: 0 0 20px #00171f;
+}
+
+.feature-box img {
+    width: 600px;
+    /* Ancho deseado */
+    height: 300px;
+    /* Alto deseado */
+    object-fit: cover;
+    /* Ajusta la imagen al tamaño especificado */
+    border-radius: 10px
+}
+
+.navbar{
+
+    background-color: #00171f;
+
+}
+
+.footer{
+
+    background-color: #00171f ;
+
+}
+
+.location{
+
+    margin-top:3%;
+
+}
