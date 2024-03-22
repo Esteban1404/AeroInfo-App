@@ -23,10 +23,11 @@ body {
   display:flex;
   justify-content: space-around;
   transition:  all .5s ease-out;
-  background-image: url('assets/imagenes/backgroundvuelos.jpeg');
+  background-image: url(../imagenes/backgroundvuelos.jpeg);
   background-size: cover;
   background-position: center;
   margin: 6%;
+  border-radius: 3%;
 }
 
 .welcome-back {
