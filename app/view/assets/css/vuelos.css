@@ -23,7 +23,7 @@ body {
   display:flex;
   justify-content: space-around;
   transition:  all .5s ease-out;
-  background-image: url('/app/view/assets/imagenes/Imagen4.jfif');
+  background-image: url('assets/imagenes/backgroundvuelos.jpeg');
   background-size: cover;
   background-position: center;
   margin: 6%;
