@@ -1,16 +1,8 @@
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-}
-
 body {
   height: 100vh;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,7 +18,8 @@ body {
   background-image: url(../imagenes/backgroundvuelos.jpeg);
   background-size: cover;
   background-position: center;
-  margin: 6%;
+  margin-left: 10%;
+  margin-bottom: 2%;
   border-radius: 3%;
 }
 
@@ -47,6 +40,20 @@ body {
   padding: 1rem 0;
   
 }
+
+/* Estilos para el footer */
+footer {
+  background-color: #003459; /* Color de fondo del footer */
+  color: #fff; /* Color del texto del footer */
+  padding: 20px; /* Espaciado interno del footer */
+  text-align: center; /* Alineación del texto al centro */
+  position: relative; /* Fijar el footer en la parte inferior de la ventana */
+  left: 0; /* Posicionar a la izquierda */
+  bottom: 0; /* Posicionar en la parte inferior */
+  width: 100%; /* Ancho completo */
+  margin:0;
+}
+
 
 .message button {
   padding: 1rem;
@@ -131,13 +138,13 @@ body {
 
 .formulario input[type="button"] {
   width: 60%;
-  margin: auto;
+  
   border: solid thin #003459;
-  padding: .7rem;
+
   border-radius: 2rem;
   background-color: #003459;
   font-weight: 600;
-  margin-top: 3rem;
+  
   font-size: .8rem;
   cursor: pointer;
   color:white;
@@ -151,32 +158,15 @@ body {
 
  
 
-/* Estilos para el footer */
-footer {
-  background-color: #003459; /* Color de fondo del footer */
-  color: #fff; /* Color del texto del footer */
-  padding: 20px; /* Espaciado interno del footer */
-  text-align: center; /* Alineación del texto al centro */
-  position: fixed; /* Fijar el footer en la parte inferior de la ventana */
-  left: 0; /* Posicionar a la izquierda */
-  bottom: 0; /* Posicionar en la parte inferior */
-  width: 100%; /* Ancho completo */
-}
-
-/* Estilos adicionales para mejorar la apariencia */
-footer p {
-  margin: 0; /* Eliminar el margen predeterminado */
-}
-
 
 header {
   background-color: var(--extra-light);
   color:gray;
   padding: 10px 0;
-  position: fixed;
+  position: relative;
   width: 100%;
   top: 0;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .container {
@@ -214,7 +204,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  text-decoration: underline;
+  color: #003459;
 }
 
 
