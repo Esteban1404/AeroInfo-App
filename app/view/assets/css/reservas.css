@@ -7,7 +7,26 @@ footer {
     left: 0; /* Posicionar a la izquierda */
     bottom: 0; /* Posicionar en la parte inferior */
     width: 100%; /* Ancho completo */
-    margin:0;
+
+  }
+  
+  
+  /* Estilos adicionales para mejorar la apariencia */
+  footer p {
+    margin: 0; /* Eliminar el margen predeterminado */
+  }
+  
+  
+  header {
+    background-color: var(--extra-light);
+    color:gray;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 9999;
+
+
   }
   
   .container {
@@ -59,7 +78,7 @@ footer {
   }
   
 
-.container-form{
+#container-form{
 
     margin:3%;
     color:#003459;
