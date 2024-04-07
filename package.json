@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "express": "^4.19.2",
+    "oracledb": "^6.4.0"
+  },
+  "name": "aeroinfo-app",
+  "description": "Project Description: Airline Management System (AEROINFO)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

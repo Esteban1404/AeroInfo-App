@@ -3,10 +3,11 @@ footer {
     color: #fff; /* Color del texto del footer */
     padding: 20px; /* Espaciado interno del footer */
     text-align: center; /* Alineación del texto al centro */
-    position: fixed; /* Fijar el footer en la parte inferior de la ventana */
+    position: relative; /* Fijar el footer en la parte inferior de la ventana */
     left: 0; /* Posicionar a la izquierda */
     bottom: 0; /* Posicionar en la parte inferior */
     width: 100%; /* Ancho completo */
+
   }
   
   
@@ -24,15 +25,20 @@ footer {
     width: 100%;
     top: 0;
     z-index: 9999;
+
+
   }
   
   .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    background-color: var(--extra-light);
+    color:gray;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    top: 0;
+    z-index: 999;
   }
   
   .container h1 {
@@ -61,13 +67,14 @@ footer {
   }
   
   nav ul li a:hover {
-    text-decoration: underline;
+    color: #003459;
   }
   
   
   body {
     background-color: #f8f9fa;
-    padding-top: 50px;
+    justify-content: space-between;
+    font-family: "Poppins", sans-serif;
   }
   
 
@@ -77,7 +84,7 @@ footer {
     color:#003459;
     width:auto;
     border-bottom: 5%;
-
+    position: relative;
 
 }
 
@@ -91,7 +98,5 @@ footer {
 .btn{
 
 margin-left: 45%;
-
-
 
 }
