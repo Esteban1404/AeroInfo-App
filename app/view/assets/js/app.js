@@ -13,3 +13,4 @@ sign_in_btn.addEventListener("click", () => {
 function redirect() {
   window.location.href = "Inicio_Registro.html";
 }
+
