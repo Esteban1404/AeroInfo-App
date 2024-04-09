@@ -3,7 +3,7 @@ footer {
     color: #fff; /* Color del texto del footer */
     padding: 20px; /* Espaciado interno del footer */
     text-align: center; /* Alineación del texto al centro */
-    position: relative; /* Fijar el footer en la parte inferior de la ventana */
+    position: fixed; /* Fijar el footer en la parte inferior de la ventana */
     left: 0; /* Posicionar a la izquierda */
     bottom: 0; /* Posicionar en la parte inferior */
     width: 100%; /* Ancho completo */
@@ -78,13 +78,15 @@ footer {
   }
   
 
-#container-form{
+  .container-form{
 
-    margin:3%;
+  
+    margin:5%;
     color:#003459;
+    position: relative;
     width:auto;
     border-bottom: 5%;
-    position: relative;
+    
 
 }
 

@@ -24,22 +24,16 @@ body {
   border-radius: 3%;
 }
 
-.welcome-back {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color:white;
-}
 
-.message {
-  padding: 1rem;
-  
-}
+.welcome-back{
 
-.message h2 {
-  font-size: 1.7rem;
-  padding: 1rem 0;
-  
+  background-color: beige;
+  margin-top: 15%;
+  border-radius: 10%;
+width: max-content;
+height: max-content;
+
+
 }
 
 /* Estilos para el footer */
@@ -55,24 +49,6 @@ footer {
   margin:0;
 }
 
-
-.message button {
-  padding: 1rem;
-  font-weight: 400;
-  background-color: #003459;
-  border-radius: 2rem;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: .9rem;
-  margin-top: 2rem;
-  transition: all .3s ease-in;
-  color: #fff;
-}
-
-.message button:hover {
-  background-color: #00171f;
-}
 
 .formulario {
   width: 400px;
@@ -151,13 +127,6 @@ footer {
   color:white;
 }
 
-
-.sign-up.active {
-  opacity: 0;
-  visibility: hidden;
-}
-
- 
 
 
 header {
