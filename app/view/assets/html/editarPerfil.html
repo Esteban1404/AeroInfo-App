@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css//editarPerfil.css">
+    <title>Editar Perfil</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form action="/editarPerfil" method="POST"> <!-- Añadido action y method -->
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form>
+                <h1>Actualizar Perfil</h1>
+                <br>
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Correo Electrónico Actual">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Nuevo Nombre">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Nuevo Correo">
+                </div>
+                <button>Guardar Cambios</button>
+            </form>            
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Siéntete libre</h1>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Siéntete libre</h1>
+                    <p>Te ofrecemos total libertad y control en nuestra plataforma. Puedes editar tus datos en cualquier
+                        momento, ya sea tu nombre de usuario u correo. Creemos que tu información es importante
+                        y deberías poder modificarla según tus necesidades. Accede a tu perfil cuando quieras hacer
+                        cambios y personaliza
+                        tu experiencia según lo desees</p>
+                        <button class="hidden" id="register" onclick="window.location.href = 'Home.html';">Regresar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="editar.js"></script>
+</body>
+
+</html>
