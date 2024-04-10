@@ -5,27 +5,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../css/Inicio_Registro_Olvido.css">
+  <link rel="stylesheet" href="/assets/css/Inicio_Registro_Olvido.css">
   <title>Inicio & Registro</title>
 </head>
-
 <body>
   <div class="container">
     <div class="forms-container">
       <div class="signin-signup">
-        <form action="#" class="sign-in-form">
+        <form action="/login" method="POST" class="sign-in-form" id="inicioSesionForm">
           <h2 class="title">Iniciar Sesión</h2>
           <div class="input-field">
             <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Correo Electrónico" />
+            <input type="email" placeholder="Correo Electrónico" name="correoElectronico" id="correoElectronico"
+              required>
           </div>
           <div class="input-field">
             <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Contraseña" />
+            <input type="password" placeholder="Contraseña" name="contraseña" id="contraseña" required>
           </div>
           <a href="olvido_contraseña.html" id="forgot-password-link" class="forgot-password-link">¿Olvidaste tu
             contraseña?</a>
-          <button type="button" class="btn solid" onclick="window.location.href = 'home.html';">Ingresar</button>
+          <button type="submit" class="btn solid">Ingresar</button>
           <p class="social-text">Inicia con otras plataformas</p>
           <div class="social-media">
             <a href="#" class="social-icon">
@@ -42,37 +42,37 @@
             </a>
           </div>
         </form>
-        <form action="#" class="sign-up-form">
-          <h2 class="title">Registrate aquí </h2>
+        <form action="/registro" method="POST" class="sign-up-form" id="registroForm">
+          <h2 class="title">Regístrate aquí</h2>
           <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="Usuario" />
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Usuario" name="nombreCompleto" id="nombreCompleto" required>
           </div>
           <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Correo Electrónico" />
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Correo Electrónico" name="correoElectronico" id="correoElectronico" required>
           </div>
           <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Contraseña" />
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Contraseña" name="contraseña" id="contraseña" required>
           </div>
           <input type="submit" class="btn" value="Registrarse" />
-          <p class="social-text">Registrate con otras plataformas</p>
+          <p class="social-text">Regístrate con otras plataformas</p>
           <div class="social-media">
-            <a href="#" class="social-icon">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-google"></i>
-            </a>
-            <a href="#" class="social-icon">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
+              <a href="#" class="social-icon">
+                  <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                  <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-icon">
+                  <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="social-icon">
+                  <i class="fab fa-linkedin-in"></i>
+              </a>
           </div>
-        </form>
+      </form>       
       </div>
     </div>
     <div class="panels-container">
@@ -88,7 +88,7 @@
             Registrarse
           </button>
         </div>
-        <img src="../imagenes/Travelers.svg" class="image" alt="" />
+        <img src="/assets/imagenes/Travelers.svg" class="image" alt="" />
       </div>
       <div class="panel right-panel">
         <div class="content">
@@ -102,11 +102,11 @@
             Iniciar Sesión
           </button>
         </div>
-        <img src="../imagenes/Aircraft.svg" class="image" alt="" />
+        <img src="/assets/imagenes/Aircraft.svg" class="image" alt="" />
       </div>
     </div>
   </div>
-  <script src="../js/app.js"></script>
+  <script src="app.js"></script>
+  <script src="registroUsuario.js"></script>
 </body>
-
-</html>
+</html> 
