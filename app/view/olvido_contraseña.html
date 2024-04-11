@@ -12,17 +12,17 @@
   <div class="container">
     <div class="forms-container">
       <div class="signin-signup">
-        <form action="#" class="sign-in-form">
+        <form action="/recuperar-contrasena" method="POST">
           <h2 class="title">Restablecer Contraseña</h2>
           <div class="input-field">
             <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Correo electrónico" />
+            <input type="email" placeholder= "Correo Electrónico " class="form-control" id="correoElectronico" name="correoElectronico" aria-describedby="emailHelp">   
           </div>
           <div class="input-field">
-            <i class="fas fa-key"></i> <!-- Icono de la llave -->
-            <input type="password" placeholder="Nueva Contraseña" />
+            <i class="fas fa-key"></i> 
+            <input type="password" placeholder= "Nueva Contraseña" class="form-control" id="nuevaContraseña" name="nuevaContraseña"> 
           </div>
-          <input type="submit" value="Cambiar" class="btn solid" />
+          <button type="submit" class="btn btn-primary btn-block">Enviar</button>
         </form>
       </div>
     </div>
@@ -43,5 +43,8 @@
     </div>
   </div>
   <script src="app.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -12,29 +12,29 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form action="/editarPerfil" method="POST"> <!-- Añadido action y method -->
+            <form action="/editarPerfil" method="POST"> 
                 <input type="text" placeholder="Name">
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
             </form>
         </div>
         <div class="form-container sign-in">
-            <form>
+            <form action="/editarPerfil" method="POST">
                 <h1>Actualizar Perfil</h1>
                 <br>
                 <div class="input-container">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Correo Electrónico Actual">
+                    <input type="email" placeholder="Correo Electrónico Actual" class="form-control" id="correoElectronico" name="correoElectronico" aria-describedby="emailHelp"> 
                 </div>
                 <div class="input-container">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Nuevo Nombre">
+                    <input type="text" placeholder="Nuevo Nombre Completo" class="form-control" id="nombreCompleto" name="nombreCompleto">
                 </div>
                 <div class="input-container">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Nuevo Correo">
+                    <input type="email" placeholder="Nuevo Correo Electrónico" class="form-control" id="nuevoCorreo" name="nuevoCorreo" aria-describedby="emailHelp"> 
                 </div>
-                <button>Guardar Cambios</button>
+                <button type="submit" class="btn btn-primary btn-block">Guardar Cambios</button>
             </form>            
         </div>
         <div class="toggle-container">
@@ -54,8 +54,9 @@
             </div>
         </div>
     </div>
-
     <script src="editar.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 </body>
 
 </html>

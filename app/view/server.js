@@ -26,9 +26,11 @@ const dbConfig = {
     connectString: 'localhost:1521/orcl'
 };
 
+//INICIO DE IMPLEMENTACIÓN SISTEMA DE USUARIOS//
+
+
 // Función para enviar un popup de registro exitoso al cliente
 function registroExitoso(res) {
-    // Emitir código JavaScript para mostrar el popup de registro exitoso
     res.send('<script>alert("¡Registro exitoso!"); window.location.href = "Inicio_Registro.html";</script>');
 }
 
@@ -39,25 +41,9 @@ async function hashPassword(password) {
         return await bcrypt.hash(password, salt);
     } catch (error) {
         console.error('Error al hacer hash de la contraseña:', error);
-        throw error; // Relanzar el error para que sea manejado por el código que llama a esta función
+        throw error; 
     }
 }
-
-
-// Ruta para manejar las solicitudes de verificación de cuenta
-app.post('/verificarCuenta', async (req, res) => {
-    try {
-        const { correoElectronico } = req.body;
-        
-        // Aquí puedes realizar la lógica de verificación de la cuenta
-        
-        // Por ahora, simplemente enviar una respuesta de éxito como ejemplo
-        res.status(200).send({ success: true, message: 'Cuenta verificada correctamente.', correoElectronico: correoElectronico });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send({ success: false, message: 'Error interno del servidor.' });
-    }
-});
 
 // Ruta para manejar las solicitudes de registro de usuarios
 app.post('/registro', async (req, res) => {
@@ -117,9 +103,9 @@ app.post('/login', async (req, res) => {
         );
         // Verificar si se encontró un usuario con las credenciales proporcionadas
         if (result.rows.length > 0) {
-            const usuario = result.rows[0]; // Obtener la fila del usuario desde la consulta
+            const usuario = result.rows[0]; 
             const nombreUsuario = usuario[0];
-            const hashedPassword = usuario[1]; // Obtener la contraseña hasheada del usuario
+            const hashedPassword = usuario[1]; 
             // Verificar la contraseña
             const passwordMatch = await bcrypt.compare(contraseña, hashedPassword);
             if (passwordMatch) {
@@ -127,13 +113,12 @@ app.post('/login', async (req, res) => {
                 const idResult = await obtenerIdUsuario(correoElectronico);
                 if (idResult.success) {
                     const userId = idResult.userId;
-                    // Aquí puedes hacer lo que necesites con el ID del usuario
                     console.log('ID del usuario:', userId);
                 } else {
                     console.error('Usuario no encontrado.');
                 }
                 // Enviar un script de JavaScript para mostrar el mensaje de bienvenida y redirigir a principal.html
-                res.send(`<script>alert('¡Bienvenid@ ${nombreUsuario}!'); window.location.href = 'principal.html';</script>`);
+                res.send(`<script>alert('¡Bienvenid@ ${nombreUsuario}!'); window.location.href = 'home.html';</script>`);
             } else {
                 // Si las credenciales son incorrectas, enviar un script de JavaScript para mostrar un mensaje de error y redirigir a login.html
                 res.send("<script>alert('Correo electrónico o contraseña incorrectos.'); window.location.href = 'Inicio_Registro.html';</script>");
@@ -275,3 +260,5 @@ app.post('/editarPerfil', async (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);
 });
+
+//FIN DE IMPLEMENTACIÓN SISTEMA DE USUARIOS//
