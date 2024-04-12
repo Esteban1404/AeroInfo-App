@@ -271,8 +271,9 @@ oracleDb.getConnection(dbConfig)
                 await connection.commit();
             } catch (error) {
                 console.error('Error al agregar vuelo:', error.message);
+                if (connection) {
                 await connection.rollback();
-                res.status(500).send('Error interno del servidor');
+            } res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "agregarVuelos.html";</script>');
             }
         });
 
@@ -282,8 +283,9 @@ oracleDb.getConnection(dbConfig)
                 await connection.commit();
             } catch (error) {
                 console.error('Error al editar vuelo:', error.message);
+                if (connection) {
                 await connection.rollback();
-                res.status(500).send('Error interno del servidor');
+            } res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "agregarVuelos.html";</script>');
             }
         });
 
@@ -293,13 +295,15 @@ oracleDb.getConnection(dbConfig)
                 await connection.commit();
             } catch (error) {
                 console.error('Error al borrar vuelo:', error.message);
+                if (connection) {
                 await connection.rollback();
-                res.status(500).send('Error interno del servidor');
-            }
+            } res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "agregarVuelos.html";</script>');
+        }
         });
     })
     .catch(err => console.error('Error de conexión a la base de datos Oracle:', err));
 //fin de parte de douglas
+
 // Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);

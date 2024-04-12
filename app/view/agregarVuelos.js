@@ -22,12 +22,12 @@ async function agregarVuelo(req, res, connection) {
         await connection.commit();
 
         // Enviar respuesta de éxito
-        res.status(200).send('Vuelo agregado correctamente');
+        res.status(200).send('<script>alert("Vuelo agregado correctamente"); window.location.href = "agregarVuelos.html";</script>');
     } catch (error) {
         console.error('Error al agregar vuelo:', error.message);
         // Rollback de la transacción en caso de error
         await connection.rollback();
-        res.status(500).send('Error interno del servidor');
+        res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "agregarVuelos.html";</script>');
     }
 }
 
@@ -57,12 +57,13 @@ async function editarVuelo(req, res, connection) {
         await connection.commit();
 
         // Enviar respuesta de éxito
-        res.status(200).send('Vuelo actualizado correctamente');
+        res.status(200).send('<script>alert("Vuelo actualizado correctamente"); window.location.href = "agregarVuelos.html";</script>');
     } catch (error) {
         console.error('Error al editar vuelo:', error.message);
         // Rollback de la transacción en caso de error
         await connection.rollback();
-        res.status(500).send('Error interno del servidor');
+        // Enviar respuesta de error con popup y redirección
+        res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "agregarVuelos.html";</script>');
     }
 }
 // Función para borrar un vuelo
@@ -80,13 +81,13 @@ async function borrarVuelo(req, res, connection) {
         await connection.commit();
 
         // Enviar respuesta de éxito
-        res.status(200).send('Vuelo borrado correctamente');
+        res.status(200).send('<script>alert("Vuelo borrado correctamente"); window.location.href = "agregarVuelos.html";</script>');
     } catch (error) {
         console.error('Error al borrar vuelo:', error.message);
         // Rollback de la transacción en caso de error
         await connection.rollback();
         // Enviar respuesta de error
-        res.status(500).send('Error interno del servidor');
+        res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "agregarVuelos.html";</script>');
     }
 }
 
