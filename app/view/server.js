@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 const oracle = require('oracledb');
 const path = require('path');
 const bcrypt = require('bcryptjs');
+const oracleDb = require('oracledb');
+const { agregarVuelo, editarVuelo, borrarVuelo } = require('./agregarVuelos'); // Importar las funciones agregarVuelo y editarVuelo
 
 const app = express();
 const port = 3000;
+
 
 // Middleware de análisis de cuerpo de solicitud
 app.use(express.static(path.join(__dirname, '..', 'view')));
@@ -255,7 +258,48 @@ app.post('/editarPerfil', async (req, res) => {
         res.status(500).send({ success: false, message: 'Error interno del servidor.' });
     }
 });
+//parte de douglas
+// Conexión a la base de datos
+oracleDb.getConnection(dbConfig)
+    .then(connection => {
+        console.log('Conexión exitosa a la base de datos Oracle');
 
+        // Aquí se integran las rutas para vuelos
+        app.post('/nuevoVuelo', async (req, res) => {
+            try {
+                await agregarVuelo(req, res, connection);
+                await connection.commit();
+            } catch (error) {
+                console.error('Error al agregar vuelo:', error.message);
+                await connection.rollback();
+                res.status(500).send('Error interno del servidor');
+            }
+        });
+
+        app.post('/editarVuelo', async (req, res) => {
+            try {
+                await editarVuelo(req, res, connection);
+                await connection.commit();
+            } catch (error) {
+                console.error('Error al editar vuelo:', error.message);
+                await connection.rollback();
+                res.status(500).send('Error interno del servidor');
+            }
+        });
+
+        app.post('/borrarVuelo', async (req, res) => {
+            try {
+                await borrarVuelo(req, res, connection);
+                await connection.commit();
+            } catch (error) {
+                console.error('Error al borrar vuelo:', error.message);
+                await connection.rollback();
+                res.status(500).send('Error interno del servidor');
+            }
+        });
+    })
+    .catch(err => console.error('Error de conexión a la base de datos Oracle:', err));
+//fin de parte de douglas
 // Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);
