@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios registrados</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .center-box {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        nav {
+            background-color: #a0bfe0; /* Celeste */
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .user-management {
+            margin-top: 20px;
+        }
+        /* Estilos para los espacios entre usuarios */
+        .user-list-item + .user-list-item {
+            margin-top: 10px;
+        }
+        /* Estilos para quitar los puntos de la lista */
+        #userList {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido al apartado de administración</h1>
+        <div class="user-management">
+            <nav>
+                <a href="#">Gestión de usuarios</a>
+                <a href="#">Gestión de vuelos</a>
+                <a href="#">Gestión de pedidos</a>
+                <a href="#">Informes y estadísticas</a>
+            </nav>
+            <div class="center-box">
+                <h2>Usuarios registrados</h2>
+                <ul id="userList">
+                    <!-- Aquí se mostrarán los usuarios registrados -->
+                    <li class="user-list-item">
+                        Usuario 1
+                        <button class="dropdown-btn">Editar</button>
+                        <div class="dropdown-content" style="display: none;">
+                            <a href="#" style="color: green;">Modificar</a>
+                            <br>
+                            <a href="#" style="color: red;">Eliminar</a>
+                        </div>
+                    </li>
+                    <li></li> <!-- Espacio entre usuarios -->
+                    <li class="user-list-item">
+                        Usuario 2
+                        <button class="dropdown-btn">Editar</button>
+                        <div class="dropdown-content" style="display: none;">
+                            <a href="#" style="color: green;">Modificar</a>
+                            <br>
+                            <a href="#" style="color: red;">Eliminar</a>
+                        </div>
+                    </li>
+                    <li></li> <!-- Espacio entre usuarios -->
+                    <li class="user-list-item">
+                        Usuario 3
+                        <button class="dropdown-btn">Editar</button>
+                        <div class="dropdown-content" style="display: none;">
+                            <a href="#" style="color: green;">Modificar</a>
+                            <br>
+                            <a href="#" style="color: red;">Eliminar</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Seleccionar todos los botones de "Editar"
+        var dropdownBtns = document.querySelectorAll(".dropdown-btn");
+
+        // Iterar sobre cada botón y agregar un evento de clic
+        dropdownBtns.forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                var content = this.nextElementSibling;
+                content.style.display = content.style.display === "block" ? "none" : "block";
+            });
+        });
+    </script>
+</body>
+</html>
+
