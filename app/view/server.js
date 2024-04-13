@@ -304,6 +304,104 @@ oracleDb.getConnection(dbConfig)
     .catch(err => console.error('Error de conexión a la base de datos Oracle:', err));
 //fin de parte de douglas
 
+//Parte de Esteban
+
+//  Implementacion para buscar el vuelo por medio del codigo de vuelo
+app.get('/vuelos', async (req, res) => {
+    const idVuelo = req.query.idVuelo;
+    try {
+        // Realizar la consulta en la base de datos para obtener la información del vuelo por su ID
+        const connection = await oracleDb.getConnection(dbConfig);
+        const result = await connection.execute(
+            `SELECT * FROM VUELO WHERE Numero_Vuelo = :id`,
+            [idVuelo]
+        );
+        if (result.rows.length > 0) {
+            // Si se encuentra el vuelo, crear una tabla HTML con los datos del vuelo
+            const vuelo = result.rows[0];
+            const vueloHTML = `
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Destino</th>
+                        <th>Estado</th>
+                        <th>Fecha de Salida</th>
+                        <th>Fecha de Llegada</th>
+                    </tr>
+                    <tr>
+                        <td>${vuelo[0]}</td>
+                        <td>${vuelo[1]}</td>
+                        <td>${vuelo[2]}</td>
+                        <td>${vuelo[3]}</td>
+                        <td>${vuelo[4]}</td>
+                    </tr>
+                </table>
+            `;
+            // Enviar la tabla HTML como respuesta al cliente
+            res.send(vueloHTML);
+        } else {
+            // Si no se encuentra el vuelo, enviar un mensaje de error al cliente
+            res.status(404).send('<p>Vuelo no encontrado</p>');
+        }
+    } catch (error) {
+        console.error('Error al buscar vuelo por ID:', error);
+        // Enviar un mensaje de error interno del servidor al cliente
+        res.status(500).send('<p>Error interno del servidor</p>');
+    }
+});
+
+//  Implementacion para buscar el vuelo para reservar
+app.get('/reserva', async (req, res) => {
+    const destino = req.query.destino;
+    try {
+        // Realizar la consulta en la base de datos para obtener la información del vuelo por su ID
+        const connection = await oracleDb.getConnection(dbConfig);
+        const result = await connection.execute(
+            `SELECT NUMERO_VUELO,DESTINO,HORA_SALIDA,HORA_LLEGADA FROM VUELO WHERE DESTINO = :destino`,
+            [destino]
+        );
+        if (result.rows.length > 0) {
+            // Si se encuentra el vuelo, crear una tabla HTML con los datos del vuelo
+            const vuelo = result.rows[0];
+           const vueloHTML=`
+           <form id="formulario">
+           <div class="mb-3">
+               
+               <input type="hidden" value="${vuelo[0]}" name="id" class="form-control" id="id" >
+           </div> 
+           <div class="mb-3">
+               <label for="destino" class="form-label">Destino</label>
+               <input type="text" value="${vuelo[1]}" name="destino" class="form-control" id="destino" readOnly>
+           </div>
+           <div class="mb-3">
+               <label for="fechaLlegada" class="form-label">Fecha LLegada</label>
+               <input type="text" value="${vuelo[3]}" name="fechaLlegada" class="form-control" id="fechaLlegada" readOnly>
+           </div>
+           <div class="mb-3">
+               <label for="fechaSalida" class="form-label">Fecha Salida</label>
+               <input type="text" value="${vuelo[2]}" name="fechaSalida" class="form-control" id="fechaSalida" readOnly>
+           </div>
+           <div class="mb-3">
+               <label for="email" class="form-label">Cantidad de Pasajeros</label>
+               <input type="email"  name="email" class="form-control" id="email" placeholder="Email">
+           </div>
+           <button type="submit" class="btn btn-primary">Reservar</button>
+       </form>
+           
+           `;        
+        
+            // Enviar la tabla HTML como respuesta al cliente
+            res.send(vueloHTML);
+        } else {
+            // Si no se encuentra el vuelo, enviar un mensaje de error al cliente
+            res.status(404).send('<p>Vuelo no encontrado</p>');
+        }
+    } catch (error) {
+        console.error('Error al buscar vuelo por ID:', error);
+        // Enviar un mensaje de error interno del servidor al cliente
+        res.status(500).send('<p>Error interno del servidor</p>');
+    }
+});
 // Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);

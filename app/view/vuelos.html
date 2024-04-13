@@ -17,7 +17,7 @@
 <body>
 
     <header>
-        <div class="container">
+        <div class="container2">
             <h1 id="tit">Aeroinfo</h1>
             <nav>
                 <ul>
@@ -31,36 +31,40 @@
         </div>
     </header>
 
-    <div class="container-form sign-up">
-        <div class="welcome-back ">
-            <table class="table">
-            
-                              <tr>
-                                  <th>Producto</th>
-                                  <th>Cantidad</th>
-                                  <th>Precio</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td>Ratón</td>
-                                  <td>15</td>
-                                  <td>100</td>
-                              </tr>
-                          </tbody>
-                      </table>
+    <div class="container">
+        <div class="container-form">
+            <div class="welcome-back text-center">
+                <h2>Buscar Vuelo</h2>
+                <form id="formulario">
+                    <div class="mb-3">
+                        <label for="idVuelo" class="form-label">Codigo del Vuelo:</label>
+                        <input type="text" class="form-control" id="idVuelo" name="idVuelo">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="buscarVuelo()">Buscar</button>
+                </form>
+            </div>
+            <div id="resultado"></div>
         </div>
-        <form class="formulario" method="POST">
-            <h2 class="buscar-vuelo">Busca tu vuelo!</h2>
-
-            <p class="cuenta-gratis ">Encuentra tu vuelo!</p>
-            <input type="text" placeholder="Destino" required>
-            <input type="text" placeholder="Origen" required>
-            <input type="text" placeholder="Numero de vuelo" required>
-            <input type="text" placeholder="Usuario" required>
-            <input type="button" value="Buscar">
-        </form>
     </div>
+
+    <script>
+        function buscarVuelo() {
+            const idVuelo = document.getElementById('idVuelo').value;
+            fetch(`/vuelos?idVuelo=${idVuelo}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('resultado').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error al buscar vuelo:', error);
+                    document.getElementById('resultado').innerHTML = '<p>Error al buscar vuelo</p>';
+                });
+        }
+    </script>
+    
+
+
+    
 
     <footer>
         <p>&copy; 2024 Aeroinfo. Todos los derechos reservados.</p>
