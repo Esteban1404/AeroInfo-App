@@ -360,6 +360,17 @@ app.get('/reserva', async (req, res) => {
             `SELECT NUMERO_VUELO,DESTINO,HORA_SALIDA,HORA_LLEGADA FROM VUELO WHERE DESTINO = :destino`,
             [destino]
         );
+        const result1= await connection.execute(
+
+            `select reserva_seq.NEXTVAL as ID_Reserva,r.Numero_Vuelo,p.ID_Pasajero,v.Numero_Vuelo,tv.ID_Tarifa
+            FROM Pasajero p, Vuelo r
+            Join Vuelo v ON 1=1
+            JOIN Tarifas_Vuelos tv ON v.Numero_Vuelo = tv.Numero_Vuelo
+            JOIN Tarifas t ON tv.ID_Tarifa =T.ID_Tarifa
+            Where r.DESTINO= :destino`[destino]
+
+        );
+
         if (result.rows.length > 0) {
             // Si se encuentra el vuelo, crear una tabla HTML con los datos del vuelo
             const vuelo = result.rows[0];
@@ -385,6 +396,12 @@ app.get('/reserva', async (req, res) => {
                <label for="email" class="form-label">Cantidad de Pasajeros</label>
                <input type="email"  name="email" class="form-control" id="email" placeholder="Email">
            </div>
+           <div class="mb-3">
+               <label for="idTarifa" class="form-label">Cantidad de Pasajeros</label>
+               <input type="IdTarifa"  name="idTarifa" class="form-control" id="idTarifa" readOnly>
+           </div>
+           
+
            <button type="submit" class="btn btn-primary">Reservar</button>
        </form>
            
