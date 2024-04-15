@@ -1,4 +1,5 @@
 const express = require('express');
+const session=require('express-session');
 const bodyParser = require('body-parser');
 const oracle = require('oracledb');
 const path = require('path');
@@ -14,6 +15,7 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, '..', 'view')));
 app.use(express.static(path.join(__dirname, '..', 'assets')));
 app.use(express.static(path.join(__dirname, '..', 'css')));
+app.use(session({secret:'mi_secreto',resave:false,saveUninitialized:true,}));
 
 // Definir la carpeta para servir archivos estáticos
 const carpetaImagenes = path.join(__dirname, '..', 'imagenes');
@@ -116,6 +118,7 @@ app.post('/login', async (req, res) => {
                 const idResult = await obtenerIdUsuario(correoElectronico);
                 if (idResult.success) {
                     const userId = idResult.userId;
+                    req.session.userId=userId;
                     console.log('ID del usuario:', userId);
                 } else {
                     console.error('Usuario no encontrado.');
@@ -353,48 +356,167 @@ app.get('/vuelos', async (req, res) => {
 //  Implementacion para buscar el vuelo para reservar
 app.get('/reserva', async (req, res) => {
     const destino = req.query.destino;
+    const userId = req.session.userId;
+
+    try {
+        const connection = await oracleDb.getConnection(dbConfig);
+        const result = await connection.execute(
+            `BEGIN obtener_vuelos_por_destino(:destino, :cursor); END;`,
+            {
+                destino: destino,
+                cursor: { type: oracleDb.CURSOR, dir: oracleDb.BIND_OUT }
+            }
+        );
+
+        const cursor = result.outBinds.cursor;
+        let vueloHTML = '';
+
+        while (true) {
+            const row = await cursor.getRow();
+            if (!row) break;
+
+            vueloHTML += `
+                <div class="mb-3">
+                    <label for="destino" class="form-label">Destino</label>
+                    <input type="text" value="${row[1]}" name="destino" class="form-control" id="destino" readOnly>
+                </div>
+                <div class="mb-3">
+                    <label for="fechaLlegada" class="form-label">Fecha LLegada</label>
+                    <input type="text" value="${row[3]}" name="fechaLlegada" class="form-control" id="fechaLlegada" readOnly>
+                </div>
+                <div class="mb-3">
+                    <label for="fechaSalida" class="form-label">Fecha Salida</label>
+                    <input type="text" value="${row[2]}" name="fechaSalida" class="form-control" id="fechaSalida" readOnly>
+                </div>
+                <form id="formulario" action="/booking" method="POST">
+                    <input type="hidden" value="${userId}" name="userId" class="form-control" id="userId" placeholder="Email">
+                    <input type="hidden" value="${row[0]}" name="numero_vuelo" class="form-control" id="numero_vuelo">
+                    <input type="hidden" value="${row[4]}" name="idTarifa" class="form-control" id="idTarifa">
+                    <button type="submit" class="btn btn-primary">Reservar</button>
+                </form>
+            `;
+        }
+
+        await cursor.close();
+
+        if (vueloHTML !== '') {
+            res.send(vueloHTML);
+        } else {
+            res.status(404).send('<p>Vuelo no encontrado</p>');
+        }
+    } catch (error) {
+        console.error('Error al buscar vuelo por destino:', error);
+        res.status(500).send('<p>Error interno del servidor</p>');
+    }
+});
+
+
+
+// Configurar la ruta para manejar la solicitud de reserva
+app.post('/booking', async (req, res) => {
+    try {
+        const connection = await oracleDb.getConnection(dbConfig);
+        console.log('Conexión exitosa a la base de datos Oracle');
+
+        const { userId, numero_vuelo, idTarifa } = req.body;
+
+        if (!userId || !numero_vuelo || !idTarifa) {
+            await connection.close();
+            return res.status(400).send('Todos los campos son obligatorios');
+        }
+
+        const existingReservation = await connection.execute(
+            `BEGIN
+                 :totalReservas := validar_reserva_existente(:userId, :numero_vuelo);
+             END;`,
+            {
+                userId: userId,
+                numero_vuelo: numero_vuelo,
+                totalReservas: { dir: oracleDb.BIND_OUT, type: oracleDb.NUMBER }
+            }
+        );
+        
+        const totalReservas = existingReservation.outBinds.totalReservas;
+        
+        if (totalReservas > 0) {
+            // Si ya existe una reserva para el usuario y el vuelo, informar al usuario y evitar la reserva
+            await connection.close();
+            return res.send('<script>alert("¡Reserva Existente!"); window.location.href = "/reservas.html";</script>');
+        }
+
+        // Ejecutar la consulta SQL para insertar los datos del formulario en la base de datos
+        const result = await connection.execute(
+            `INSERT INTO RESERVA (ID_PASAJERO, NUMERO_VUELO, ID_TARIFA) 
+             VALUES (:userId, :numero_vuelo, :idTarifa)`,
+            [userId, numero_vuelo, idTarifa]
+        );
+
+        // Commit de la transacción
+        await connection.commit();
+
+        // Liberar la conexión
+        await connection.close();
+
+        // Enviar una respuesta al cliente para indicar que la reserva se realizó con éxito
+        res.send('<script>alert("¡Reserva realizada con éxito!"); window.location.href = "/reservas.html";</script>');
+    } catch (error) {
+        console.error('Error al procesar la reserva:', error);
+        // Enviar un mensaje de error interno del servidor al cliente
+        res.status(500).send('<p>Error interno del servidor al procesar la reserva</p>');
+    }
+});
+
+app.get('/historial', async (req, res) => {
+    const userId = req.session.userId;   
+
     try {
         // Realizar la consulta en la base de datos para obtener la información del vuelo por su ID
         const connection = await oracleDb.getConnection(dbConfig);
         const result = await connection.execute(
-            `SELECT NUMERO_VUELO,DESTINO,HORA_SALIDA,HORA_LLEGADA FROM VUELO WHERE DESTINO = :destino`,
-            [destino]
+            `SELECT 
+            p.Nombre AS Nombre_Pasajero,
+            v.Destino,
+            v.Hora_Salida AS Fecha_Salida,
+            v.Hora_Llegada AS Fecha_Llegada,
+            t.Tipo_Tarifa AS Tarifa
+        FROM 
+            Reserva r
+        JOIN 
+            Pasajero p ON r.ID_Pasajero = p.ID_Pasajero
+        JOIN 
+            Vuelo v ON r.Numero_Vuelo = v.Numero_Vuelo
+        JOIN 
+            Tarifas t ON r.ID_Tarifa = t.ID_Tarifa
+            Where p.ID_PASAJERO= :userId
+        `,
+            [userId]
         );
-        if (result.rows.length > 0) {
-            // Si se encuentra el vuelo, crear una tabla HTML con los datos del vuelo
-            const vuelo = result.rows[0];
-           const vueloHTML=`
-           <form id="formulario">
-           <div class="mb-3">
-               
-               <input type="hidden" value="${vuelo[0]}" name="id" class="form-control" id="id" >
-           </div> 
-           <div class="mb-3">
-               <label for="destino" class="form-label">Destino</label>
-               <input type="text" value="${vuelo[1]}" name="destino" class="form-control" id="destino" readOnly>
-           </div>
-           <div class="mb-3">
-               <label for="fechaLlegada" class="form-label">Fecha LLegada</label>
-               <input type="text" value="${vuelo[3]}" name="fechaLlegada" class="form-control" id="fechaLlegada" readOnly>
-           </div>
-           <div class="mb-3">
-               <label for="fechaSalida" class="form-label">Fecha Salida</label>
-               <input type="text" value="${vuelo[2]}" name="fechaSalida" class="form-control" id="fechaSalida" readOnly>
-           </div>
-           <div class="mb-3">
-               <label for="email" class="form-label">Cantidad de Pasajeros</label>
-               <input type="email"  name="email" class="form-control" id="email" placeholder="Email">
-           </div>
-           <button type="submit" class="btn btn-primary">Reservar</button>
-       </form>
-           
-           `;        
         
+        if (result.rows.length > 0) {
+            let vueloHTML = ''; // Inicializar una cadena para almacenar el HTML de todos los vuelos
+            result.rows.forEach(vuelo => {
+                vueloHTML += `
+                <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Nombre Pasajero: ${vuelo[0]}</h5>
+                        <p class="card-text">Destino: ${vuelo[1]}</p>
+                        <p class="card-text">Fecha Salida: ${vuelo[2]}</p>
+                        <p class="card-text">Fecha Llegada: ${vuelo[3]}</p>
+                        <p class="card-text">Tipo Tarifa: ${vuelo[4]}</p>
+                    </div>
+                </div>
+            </div>
+                `;
+            });
+
+            vueloHTML += '</ul>';
+
             // Enviar la tabla HTML como respuesta al cliente
             res.send(vueloHTML);
         } else {
-            // Si no se encuentra el vuelo, enviar un mensaje de error al cliente
-            res.status(404).send('<p>Vuelo no encontrado</p>');
+            // Si no se encuentra ninguna reserva, enviar un mensaje indicando que no se encontraron vuelos
+            res.send('<p>No se encontraron vuelos en el historial</p>');
         }
     } catch (error) {
         console.error('Error al buscar vuelo por ID:', error);
@@ -402,6 +524,8 @@ app.get('/reserva', async (req, res) => {
         res.status(500).send('<p>Error interno del servidor</p>');
     }
 });
+
+
 // Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);

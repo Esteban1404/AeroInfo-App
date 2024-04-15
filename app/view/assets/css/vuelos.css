@@ -22,10 +22,10 @@ body {
 }
 
 #tit{
-
-padding-right: 20%;
+padding-right: 25px;
 
 }
+
 
 .container {
   width: 100%;
@@ -140,6 +140,15 @@ header {
   z-index: 9999;
 }
 
+#tit{
+  list-style: none;
+  color: gray;
+  text-decoration: none;
+}
+.container h1 {
+  margin: 0;
+}
+
 nav ul {
   list-style: none;
   padding: 0;
@@ -164,6 +173,7 @@ nav ul li a {
 nav ul li a:hover {
   color: #003459;
 }
+
 
 
 

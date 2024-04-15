@@ -17,15 +17,7 @@ footer {
   }
   
   
-  header {
-    background-color: var(--extra-light);
-    color:gray;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 9999;
-  }
+ 
   
   .container {
     max-width: 1200px;
@@ -38,7 +30,19 @@ footer {
     top: 0;
     z-index: 999;
   }
+
+  a{
+
+    text-decoration: none;
+
+
+  }
   
+  #tit{
+    list-style: none;
+    color: gray;
+    text-decoration: none;
+  }
   .container h1 {
     margin: 0;
   }
