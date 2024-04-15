@@ -1,104 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios registrados</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        .center-box {
-            width: 60%; /* Ancho aumentado */
-            margin: 100px auto 0 auto; /* Ajuste del margen superior */
-            text-align: center;
-            border: 2px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        nav {
-            background-color: #a0bfe0; /* Celeste */
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-        .user-management {
-            text-align: center; /* Centra el contenido horizontalmente */
-        }
-        /* Estilos para los espacios entre usuarios */
-        .user-list-item + .user-list-item {
-            margin-top: 20px; /* Aumento del espacio entre usuarios */
-        }
-        /* Estilos para quitar los puntos de la lista */
-        #userList {
-            list-style-type: none;
-            padding: 0;
-        }
-    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"href="view\assets\css\Admin.css">
+    <title>Gestion de usuarios</title>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Bienvenido al apartado de administración</h1>
-        <div class="user-management">
+    <div class="banner">
+        <div class="container">
+            <h1>Gestión de Usuarios</h1>
+        </div>
+    </div>
+    <header>
+        <div class="container">
             <nav>
-                <a href="#">Gestión de usuarios</a>
-                <a href="#">Gestión de vuelos</a>
-                <a href="#">Gestión de pedidos</a>
-                <a href="#">Informes y estadísticas</a>
-            </nav>
-            <div class="center-box">
-                <h2>Usuarios registrados</h2>
-                <ul id="userList">
-                    <!-- Aquí se mostrarán los usuarios registrados -->
-                    <li class="user-list-item">
-                        Usuario 1
-                        <button class="dropdown-btn">Editar</button>
-                        <div class="dropdown-content" style="display: none;">
-                            <a href="#" style="color: green;">Modificar</a>
-                            <br>
-                            <a href="#" style="color: red;">Eliminar</a>
-                        </div>
-                    </li>
-                    <li></li> <!-- Espacio entre usuarios -->
-                    <li class="user-list-item">
-                        Usuario 2
-                        <button class="dropdown-btn">Editar</button>
-                        <div class="dropdown-content" style="display: none;">
-                            <a href="#" style="color: green;">Modificar</a>
-                            <br>
-                            <a href="#" style="color: red;">Eliminar</a>
-                        </div>
-                    </li>
-                    <li></li> <!-- Espacio entre usuarios -->
-                    <li class="user-list-item">
-                        Usuario 3
-                        <button class="dropdown-btn">Editar</button>
-                        <div class="dropdown-content" style="display: none;">
-                            <a href="#" style="color: green;">Modificar</a>
-                            <br>
-                            <a href="#" style="color: red;">Eliminar</a>
-                        </div>
-                    </li>
+                <ul>
+                    <li><a href="home.html">Inicio</a></li>
+                    <li><a href="reservas.html">Reservas</a></li>
+                    <li><a href="vuelos.html">Seguimiento De Vuelos</a></li>
+                    <li><a href="#">Tripulacion</a></li>
+                    <li><a href="#">Destinos</a></li>
+                    <li><a href="agregarVuelos.html">Gestion de vuelos</a></li>
+                    <li><a href="agregarusuarios.html">Gestion de usuarios</a></li>
                 </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container"> 
+        <div class="row justify-content-center">
+            <div class="col-md-12 mb-4">
+                <div class="card h-59">
+                    <div class="card-header text-white" style="background-color: #003459;">
+                        <h1 class="text-center">Agregar Nuevo Usuario</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="formUsuario" action="/nuevoUsuario" method="POST">
+                            <div class="form-group">
+                                <label for="NOMBRE">Nombre:</label>
+                                <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CORREO">Correo Electrónico:</label>
+                                <input type="email" class="form-control" id="CORREO" name="CORREO" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="PASSWORD">Contraseña:</label>
+                                <input type="password" class="form-control" id="PASSWORD" name="PASSWORD" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ROL">Rol:</label>
+                                <select class="form-control" id="ROL" name="ROL" required>
+                                    <option value="admin">Administrador</option>
+                                    <option value="usuario">Usuario</option>
+                                </select>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <div class="container"> 
+        <div class="row justify-content-center">
+            <div class="col-md-12 mb-4">
 
-    <script>
-        // Seleccionar todos los botones de "Editar"
-        var dropdownBtns = document.querySelectorAll(".dropdown-btn");
+                <div class="card h-59">
+                    <div class="card-header text-white" style="background-color: #003459;">
+                        <h1 class="text-center">Editar Usuario</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="formUsuario" action="/editarUsuario" method="POST">
+                            <div class="form-group">
+                                <label for="ID_USUARIO">ID de Usuario:</label>
+                                <input type="text" class="form-control" id="ID_USUARIO" name="ID_USUARIO" required>
+                            </div>
 
-        // Iterar sobre cada botón y agregar un evento de clic
-        dropdownBtns.forEach(function(btn) {
-            btn.addEventListener("click", function() {
-                var content = this.nextElementSibling;
-                content.style.display = content.style.display === "block" ? "none" : "block";
-            });
-        });
-    </script>
+                            <div class="form-group">
+                                <label for="NOMBRE">Nombre:</label>
+                                <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CORREO">Correo Electrónico:</label>
+                                <input type="email" class="form-control" id="CORREO" name="CORREO" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="PASSWORD">Nueva Contraseña:</label>
+                                <input type="password" class="form-control" id="PASSWORD" name="PASSWORD">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ROL">Rol:</label>
+                                <select class="form-control" id="ROL" name="ROL" required>
+                                    <option value="admin">Administrador</option>
+                                    <option value="usuario">Usuario</option>
+                                </select>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card h-59">
+                <div class="card-header text-white" style="background-color: #003459;">
+                    <h2 class="text-center">Eliminar Usuario</h2>
+                </div>
+                <div class="card-body">
+                    <form id="formBorrarUsuario" action="/borrarUsuario" method="POST">
+                        <div class="form-group">
+                            <label for="ID_USUARIO">ID del Usuario a Eliminar:</label>
+                            <input type="text" class="form-control" id="ID_USUARIO" name="ID_USUARIO" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Bootstrap JS y Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer>
+        <p>&copy; 2024 Aeroinfo. Todos los derechos reservados.</p>
+    </footer>
 </body>
-</html>
 
+</html>
