@@ -1,6 +1,7 @@
 footer {
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
     background-color: #003459;
     color: #fff;
@@ -76,27 +77,9 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 100px;
-    background-image: url(../imagenes/backgroundvuelos.jpeg);
-    background-size: cover;
-    background-position: center;
   }
 
-  #historial-reservas{
-
-margin-bottom: 100px;
-padding-left: 25%;
-margin-top:3%;
-position:sticky;
-
-  }
-
-  .card{
-
-  width: 200%;
-
-
-  }
+  
 
 
 

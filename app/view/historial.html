@@ -10,52 +10,40 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <!--Link de estilos-->
-    <link rel="stylesheet" type='text/css' href='.../../assets/css/historial.css'>
+    <link rel="stylesheet" type='text/css' href='../css/historial.css'>
 
 </head>
 
 <body>
+
     <header>
         <div class="container">
-        <a href="home.html"><h1 id="tit">AeroInfo</h1></a>
+            <h1>Aeroinfo</h1>
             <nav>
                 <ul>
-                    
+                    <li><a href="home.html">Inicio</a></li>
                     <li><a href="reservas.html">Reservas</a></li>
                     <li><a href="vuelos.html">Seguimiento De Vuelos</a></li>
                     <li><a href="#">Tripulacion</a></li>
-                    <li><a href="historial.html">Historial</a></li>
-                    <li ><a href="editarPerfil.html">Editar Perfil</a></li>
-                    <li ><a href="agregarVuelos.html">Gestion de vuelos</a></li>
+                    <li><a href="#">Destinos</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <h1 class="text-center">Historial de Reservas</h1>
-    <div id="historial-reservas">
-        <!-- Aquí se mostrará el historial de reservas -->
-    </div>
+<div class="ctr">
+    <table id='tblistado'>
+        <thead>
+            <tr>
+             <th>Fecha</th>
+            </tr>  
+             
+         </thead>
+         <tbody>
 
-    <script>
-        // Cuando la página se cargue completamente
-        window.onload = async function() {
-            try {
-                // Realizar una solicitud GET al servidor para obtener el historial de reservas
-                const response = await fetch('/historial');
-                const historialReservas = await response.text();
-                
-                // Actualizar el contenido del div con id "historial-reservas" con el historial de reservas obtenido
-                document.getElementById('historial-reservas').innerHTML = historialReservas;
-            } catch (error) {
-                console.error('Error al obtener el historial de reservas:', error);
-                // Mostrar un mensaje de error en caso de que ocurra un error al obtener el historial de reservas
-                document.getElementById('historial-reservas').innerHTML = '<p>Error al obtener el historial de reservas</p>';
-            }
-        };
-    </script>
-    
-
+         </tbody>
+    </table>
+</div>
 
 
     <footer>

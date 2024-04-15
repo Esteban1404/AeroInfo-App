@@ -2,7 +2,6 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.19.2",
-    "express-session": "^1.18.0",
     "oracledb": "^6.4.0"
   },
   "name": "aeroinfo-app",
