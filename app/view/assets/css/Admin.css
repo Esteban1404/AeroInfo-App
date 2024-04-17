@@ -1,61 +1,38 @@
-/* Estilo para el footer */
-footer {
+.banner {
   background-color: #003459;
-  color: white;
-  text-align: center;
+  color: #fff;
   padding: 10px 0;
-  width: 100%;
 }
 
-/* Estilo para la navegación */
-nav ul {
-  list-style: none;
-  padding: 0;
+.banner__logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.banner__nav {
+  margin-top: 10px;
+  margin-right: 20px;
+  float: right;
+}
+
+.nav__links {
+  list-style-type: none;
   margin: 0;
+  padding: 0;
 }
 
-nav ul li {
-  display: inline-block;
-  margin-left: 25px;
+.nav__links .link {
+  display: inline;
+  margin-right: 20px;
 }
 
-nav ul li:first-child {
-  margin-left: 350px; /* Ajusta el margen izquierdo del primer elemento de la lista según tus necesidades */
-}
-
-nav ul li a {
-  color: gray;
+.nav__links .link a {
+  color: #fff;
   text-decoration: none;
-  font-size: 18px;
+  font-weight: bold;
 }
 
-nav ul li a:hover {
-  color: #003459;
-}
-
-/* Estilo para el último contenedor */
-.container:last-child {
-  margin-bottom: 60px; /* Ajusta este valor según tus necesidades */
-}
-
-/* Estilo para reducir el tamaño de la tarjeta */
-.col-md-12 .card {
-  max-width: 400px; /* Ajusta el ancho máximo según tus necesidades */
-  margin: auto; /* Centra la tarjeta horizontalmente */
-}
-
-/* Estilo para reducir el tamaño del header de la tarjeta */
-.card-header h1 {
-  font-size: 1.5rem; /* Reduce el tamaño de la fuente */
-}
-
-/* Estilo para reducir el tamaño del formulario y sus elementos internos */
-#formUsuario .form-group label,
-#formUsuario .btn {
-  font-size: 0.9rem; /* Reduce el tamaño de la fuente de las etiquetas y botones */
-}
-
-#formUsuario .form-control {
-  padding: 0.5rem; /* Reduce el espaciado interno de los campos de entrada */
-  font-size: 0.9rem; /* Reduce el tamaño de la fuente de los campos de entrada */
+.nav__links .link a:hover {
+  color: #ffc107;
 }
