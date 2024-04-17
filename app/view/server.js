@@ -4,7 +4,9 @@ const oracle = require('oracledb');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const oracleDb = require('oracledb');
-const { agregarVuelo, editarVuelo, borrarVuelo } = require('./agregarVuelos'); // Importar las funciones agregarVuelo y editarVuelo
+const { agregarVuelo, editarVuelo, borrarVuelo,verificarEquipaje } = require('./funciones',); // Importar las funciones agregarVuelo y editarVuelo
+
+
 
 const app = express();
 const port = 3000;
@@ -258,7 +260,7 @@ app.post('/editarPerfil', async (req, res) => {
         res.status(500).send({ success: false, message: 'Error interno del servidor.' });
     }
 });
-//parte de douglas
+//parte de douglas y gestion de equipaje
 // Conexión a la base de datos
 oracleDb.getConnection(dbConfig)
     .then(connection => {
@@ -300,8 +302,22 @@ oracleDb.getConnection(dbConfig)
             } res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "agregarVuelos.html";</script>');
         }
         });
+        // Ruta para manejar las solicitudes POST de verificación de equipaje
+app.post('/verificarEquipaje', async (req, res) => {
+    try {
+        await verificarEquipaje(req, res, connection);
+        await connection.commit();
+    } catch (error) {
+        console.error('Error al verificar el equipaje:', error.message);
+        if (connection) {
+        await connection.rollback();
+    } res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "equipaje.html";</script>');
+}
+    
     })
+})
     .catch(err => console.error('Error de conexión a la base de datos Oracle:', err));
+    
 //fin de parte de douglas
 
 //Parte de Esteban

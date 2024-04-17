@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/gestion_equipaje.css">
+    <title>Gestion de Equipaje</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Gestion de Pedidos</h1>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Inicio</a></li>
+                    <li><a href="reservas.html">Reservas</a></li>
+                    <li><a href="vuelos.html">Seguimiento De Vuelos</a></li>
+                    <li><a href="#">Tripulacion</a></li>
+                    <li><a href="#">Destinos</a></li>
+                    <li><a href="agregarVuelos.html">Gestion de vuelos</a></li>
+                    <li><a href="equipaje.html">Gestion de equipaje</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header text-white" style="background-color: #003459;">
+                        <h1 class="text-center">Verificar Equipaje</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="formEquipaje" action="/verificarEquipaje" method="POST">
+                            <div class="form-group">
+                                <label for="ID_PASAJERO">ID del Pasajero:</label>
+                                <input type="text" class="form-control" id="ID_PASAJERO" name="ID_PASAJERO" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Verificar Equipaje</button>
+                            </div>
+                        </form>
+                        
+                        <!-- Tabla para mostrar el equipaje -->
+                        <div id="equipajeTable" class="mt-4">
+                            <h2>Información de Equipaje</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID Equipaje</th>
+                                        <th>ID Pasajero</th>
+                                        <th>Número de Vuelo</th>
+                                        <th>ID Cliente</th>
+                                        <th>Peso</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="equipajeBody">
+                                    <!-- Los datos se llenarán aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Script para manejar la respuesta del servidor -->
+    <script>
+        $(document).ready(function() {
+            $('#formEquipaje').submit(function(event) {
+                event.preventDefault();
+                
+                let idPasajero = $('#ID_PASAJERO').val();
+
+                $.post('/verificarEquipaje', { ID_PASAJERO: idPasajero }, function(data) {
+                    let rows = '';
+
+                    // Llenar la tabla con los datos recibidos
+                    data.forEach(row => {
+                        rows += `<tr>
+                                    <td>${row[0]}</td>
+                                    <td>${row[1]}</td>
+                                    <td>${row[2]}</td>
+                                    <td>${row[3]}</td>
+                                    <td>${row[4]}</td>
+                                    <td>${row[5]}</td>
+                                </tr>`;
+                    });
+
+                    $('#equipajeBody').html(rows);
+                })
+                .fail(function(response) {
+                    alert(response.responseText);
+                });
+            });
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Aeroinfo. Todos los derechos reservados.</p>
+    </footer>
+</body>
+
+</html>

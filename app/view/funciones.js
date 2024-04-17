@@ -90,7 +90,35 @@ async function borrarVuelo(req, res, connection) {
         res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "agregarVuelos.html";</script>');
     }
 }
+async function verificarEquipaje(req, res, connection) {
+    let result;
+    try {
+        const { ID_PASAJERO } = req.body;
 
-module.exports = { agregarVuelo, editarVuelo, borrarVuelo };
+        // Consulta SQL para verificar el equipaje del pasajero
+        const query = `
+            SELECT ID_Equipaje, ID_Pasajero, Numero_Vuelo, ID_Cliente, Peso, Estado 
+            FROM Equipaje 
+            WHERE ID_Pasajero = :ID_PASAJERO
+        `;
+
+        // Ejecutar la consulta
+        result = await connection.execute(query, [ID_PASAJERO]);
+
+        // Comprobar si se encontraron registros
+        if (result.rows.length > 0) {
+            // Enviar respuesta con la información del equipaje
+            res.status(200).send(result.rows);
+        } else {
+            // Enviar respuesta indicando que no se encontró equipaje para el pasajero
+            res.status(404).send('<script>alert("No se encontró equipaje para el pasajero"); window.location.href = "equipaje.html";</script>');
+        }
+    } catch (error) {
+        console.error('Error al verificar equipaje:', error.message);
+        // Enviar respuesta de error
+        res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "equipaje.html";</script>');
+    }
+}
+module.exports = { agregarVuelo, editarVuelo, borrarVuelo,verificarEquipaje };
 
 
