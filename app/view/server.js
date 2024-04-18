@@ -337,10 +337,10 @@ app.get('/vuelos', async (req, res) => {
             // Si se encuentra el vuelo, crear una tabla HTML con los datos del vuelo
             const vuelo = result.rows[0];
             const vueloHTML = `
-                <table>
+                <table >
                     <tr>
-                        <th>ID</th>
-                        <th>Destino</th>
+                        <th>ID</th>                    
+                        <th>Destino</th>                 
                         <th>Estado</th>
                         <th>Fecha de Salida</th>
                         <th>Fecha de Llegada</th>
