@@ -441,10 +441,10 @@ app.post('/booking', async (req, res) => {
 
         const existingReservation = await connection.execute(
             `BEGIN
-                 :totalReservas := validar_reserva_existente(:userId, :numero_vuelo);
+                 :totalReservas := validar_reserva_existente(:p_userId, :numero_vuelo);
              END;`,
             {
-                userId: userId,
+                p_userId: userId, // Cambio realizado aquí
                 numero_vuelo: numero_vuelo,
                 totalReservas: { dir: oracleDb.BIND_OUT, type: oracleDb.NUMBER }
             }
@@ -461,8 +461,12 @@ app.post('/booking', async (req, res) => {
         // Ejecutar la consulta SQL para insertar los datos del formulario en la base de datos
         const result = await connection.execute(
             `INSERT INTO RESERVA (ID_PASAJERO, NUMERO_VUELO, ID_TARIFA) 
-             VALUES (:userId, :numero_vuelo, :idTarifa)`,
-            [userId, numero_vuelo, idTarifa]
+             VALUES ((SELECT ID FROM Usuarios WHERE ID = :userId), :numero_vuelo, :idTarifa)`,
+            {
+                userId: userId, // Cambio realizado aquí
+                numero_vuelo: numero_vuelo,
+                idTarifa: idTarifa
+            }
         );
 
         // Commit de la transacción
@@ -480,6 +484,7 @@ app.post('/booking', async (req, res) => {
     }
 });
 
+
 app.get('/historial', async (req, res) => {
     const userId = req.session.userId;   
 
@@ -488,7 +493,7 @@ app.get('/historial', async (req, res) => {
         const connection = await oracleDb.getConnection(dbConfig);
         const result = await connection.execute(
             `SELECT 
-            p.Nombre AS Nombre_Pasajero,
+            p.NOMBRE_COMPLETO AS Nombre_Pasajero,
             v.Destino,
             v.Hora_Salida AS Fecha_Salida,
             v.Hora_Llegada AS Fecha_Llegada,
@@ -496,12 +501,12 @@ app.get('/historial', async (req, res) => {
         FROM 
             Reserva r
         JOIN 
-            Pasajero p ON r.ID_Pasajero = p.ID_Pasajero
+            Usuarios p ON r.ID_Pasajero = p.ID
         JOIN 
             Vuelo v ON r.Numero_Vuelo = v.Numero_Vuelo
         JOIN 
             Tarifas t ON r.ID_Tarifa = t.ID_Tarifa
-            Where p.ID_PASAJERO= :userId
+            Where p.ID= :userId
         `,
             [userId]
         );
@@ -538,7 +543,6 @@ app.get('/historial', async (req, res) => {
         res.status(500).send('<p>Error interno del servidor</p>');
     }
 });
-
 
 
 //FIN DE IMPLEMENTACIÓN SISTEMA
