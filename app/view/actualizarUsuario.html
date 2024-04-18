@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/Admin.css"> <!-- Referencia al archivo CSS externo -->
+    <title>Gestion de usuarios</title>
+</head>
+
+<body>
+    <header class="banner">
+        <a href="/admin">
+        <div class="banner__logo">AeroInfo</div>
+        </a>
+        <nav class="banner__nav">
+            <ul class="nav__links">
+                <li class="link"><a href="/admin">Inicio</a></li>
+                <li class="link"><a href="/gestionVuelos">Gestión de vuelos</a></li>
+                <li class="link"><a href="/users">Gestión de usuarios</a></li>
+                <li class="link"><a href="/reportes">Gestión de reportes</a></li>
+                <li class="link"><a href="/">Cerrar Sesion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-center">Editar Usuario</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="formUsuario" action="/updateUser" method="POST">
+                            <div class="form-group">
+                                <label for="ID">ID de Usuario:</label>
+                                <input type="NUMBER" class="form-control" id="ID" name="ID" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="NOMBRE">Nombre:</label>
+                                <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="CORREO">Correo Electrónico:</label>
+                                <input type="email" class="form-control" id="CORREO" name="CORREO" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="PASSWORD">Contraseña:</label>
+                                <input type="password" class="form-control" id="PASSWORD" name="PASSWORD" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ROL">Rol:</label>
+                                <select class="form-control" id="ROL" name="ROL">
+                                    <option value="">Seleccione un Rol..</option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+    </div>
+
+    <!-- Bootstrap JS y Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./addUser.js"></script> <!-- Referencia al archivo JS externo -->
+
+    <footer>
+        <p>&copy; 2024 AeroInfo. Todos los derechos reservados.</p>
+    </footer>
+</body>
+
+</html>
