@@ -1,7 +1,11 @@
+/* Banner Styles */
 .banner {
   background-color: #003459;
-  color: #fff;
+  color: white;
   padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .banner__logo {
@@ -10,29 +14,67 @@
   margin-left: 20px;
 }
 
-.banner__nav {
-  margin-top: 10px;
+/* Navigation Styles */
+.banner__nav, .nav__links {
+  display: flex;
+  list-style: none;
   margin-right: 20px;
-  float: right;
-}
-
-.nav__links {
-  list-style-type: none;
-  margin: 0;
   padding: 0;
 }
 
 .nav__links .link {
-  display: inline;
   margin-right: 20px;
 }
 
-.nav__links .link a {
-  color: #fff;
+.nav__links .link a, .nav__links .link button {
+  color: white;
   text-decoration: none;
   font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.nav__links .link a:hover {
-  color: #ffc107;
+.nav__links .link a:hover, .nav__links .link button:hover {
+  color: #ffc107;  /* Highlight color on hover */
+}
+
+/* Card Styles */
+.card-header {
+  background-color: #003459;
+  color: white;
+  font-size: 18px;
+}
+
+.form-control {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.text-center {
+  margin-top: 20px;
+}
+
+/* New Styles for Report Management */
+.container {
+  margin-top: 20px;
+}
+
+.mb-4 {
+  margin-bottom: 4rem !important;
+}
+
+.h-59 {
+  height: 30vh !important; /* Ajusta la altura del contenedor de la tarjeta */
+}
+
+#myChart {
+  max-width: 500px; /* Reduzca el ancho del gráfico */
+  max-height: 400px; /* Reduzca la altura del gráfico */
+  margin: auto; /* Centra el gráfico */
 }

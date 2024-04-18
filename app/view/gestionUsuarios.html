@@ -6,49 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="view/assets/css/Admin.css">
+    <link rel="stylesheet" href="assets/css/Admin.css"> <!-- Referencia al archivo CSS externo -->
     <title>Gestion de usuarios</title>
-    <style>
-        .banner {
-            background-color: #003459;
-            color: #fff;
-            padding: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .banner__logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-left: 20px;
-        }
-
-        .banner__nav {
-            margin-right: 20px;
-        }
-
-        .nav__links {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav__links .link {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        .nav__links .link a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .nav__links .link a:hover {
-            color: #ffc107;
-        }
-    </style>
 </head>
 
 <body>
@@ -58,18 +17,18 @@
             <ul class="nav__links">
                 <li class="link"><a href="Admin.html">Inicio</a></li>
                 <li class="link"><a href="agregarVuelos.html">Gestión de vuelos</a></li>
-                <li class="link"><a href="gestionPedidos.html">Gestión de pedidos</a></li>
-                <li class="link"><a href="gestionUsuarios.html">Gestión de usuarios</a></i>
+                <li class="link"><a href="gestionUsuarios.html">Gestión de usuarios</a></li>
                 <li class="link"><a href="gestionReportes.html">Gestión de reportes</a></li>
+                <li class="link"><button onclick="window.location.href='home.html';">Salir</button></li>
             </ul>
         </nav>
     </header>
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12 mb-4">
-                <div class="card h-59">
-                    <div class="card-header text-white" style="background-color: #003459;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
                         <h1 class="text-center">Agregar Nuevo Usuario</h1>
                     </div>
                     <div class="card-body">
@@ -78,97 +37,78 @@
                                 <label for="NOMBRE">Nombre:</label>
                                 <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="CORREO">Correo Electrónico:</label>
                                 <input type="email" class="form-control" id="CORREO" name="CORREO" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="PASSWORD">Contraseña:</label>
                                 <input type="password" class="form-control" id="PASSWORD" name="PASSWORD" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="ROL">Rol:</label>
-                                <select class="form-control" id="ROL" name="ROL" required>
+                                <select class="form-control" id="ROL" name="ROL">
                                     <option value="admin">Administrador</option>
                                     <option value="usuario">Usuario</option>
                                 </select>
                             </div>
-
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Agregar Usuario</button>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 mb-4">
-                <div class="card h-59">
-                    <div class="card-header text-white" style="background-color: #003459;">
+                <div class="card">
+                    <div class="card-header">
                         <h1 class="text-center">Editar Usuario</h1>
                     </div>
                     <div class="card-body">
-                        <form id="formUsuario" action="/editarUsuario" method="POST">
+                        <form id="formEditarUsuario" action="/editarUsuario" method="POST">
                             <div class="form-group">
                                 <label for="ID_USUARIO">ID de Usuario:</label>
                                 <input type="text" class="form-control" id="ID_USUARIO" name="ID_USUARIO" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="NOMBRE">Nombre:</label>
                                 <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="CORREO">Correo Electrónico:</label>
                                 <input type="email" class="form-control" id="CORREO" name="CORREO" required>
                             </div>
-
                             <div class="form-group">
-                                <label for="PASSWORD">Nueva Contraseña:</label>
+                                <label for="PASSWORD">Nueva Contraseña (opcional):</label>
                                 <input type="password" class="form-control" id="PASSWORD" name="PASSWORD">
                             </div>
-
                             <div class="form-group">
                                 <label for="ROL">Rol:</label>
-                                <select class="form-control" id="ROL" name="ROL" required>
+                                <select class="form-control" id="ROL" name="ROL">
                                     <option value="admin">Administrador</option>
                                     <option value="usuario">Usuario</option>
                                 </select>
                             </div>
-
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="card h-59">
-            <div class="card-header text-white" style="background-color: #003459;">
-                <h2 class="text-center">Eliminar Usuario</h2>
-            </div>
-            <div class="card-body">
-                <form id="formBorrarUsuario" action="/borrarUsuario" method="POST">
-                    <div class="form-group">
-                        <label for="ID_USUARIO">ID del Usuario a Eliminar:</label>
-                        <input type="text" class="form-control" id="ID_USUARIO" name="ID_USUARIO" required>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Eliminar Usuario</h2>
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                    <div class="card-body">
+                        <form id="formBorrarUsuario" action="/borrarUsuario" method="POST">
+                            <div class="form-group">
+                                <label for="ID_USUARIO">ID del Usuario a Eliminar:</label>
+                                <input type="text" class="form-control" id="ID_USUARIO" name="ID_USUARIO" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Eliminar</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -179,7 +119,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <footer>
-        <p>&copy; 2024 Aeroinfo. Todos los derechos reservados.</p>
+        <p>&copy; 2024 AeroInfo. Todos los derechos reservados.</p>
     </footer>
 </body>
 

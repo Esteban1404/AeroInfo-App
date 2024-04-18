@@ -7,48 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/Admin.css">
+    <link rel="stylesheet" href="assets/css/Admin.css"> <!-- Referencia al archivo CSS externo -->
     <title>AeroInfo - Administración</title>
-    <style>
-        .banner {
-            background-color: #003459;
-            color: #edeaf1;
-            padding: 10px 0;
-            display: flex; /* Alineación de elementos */
-            justify-content: space-between; /* Alineación de elementos */
-            align-items: center; /* Alineación vertical de elementos */
-        }
-
-        .banner__logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-left: 20px;
-        }
-
-        .banner__nav {
-            margin-right: 20px;
-        }
-
-        .nav__links {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav__links .link {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        .nav__links .link a {
-            color: #f3f3f3;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .nav__links .link a:hover {
-            color: #ffc107;
-        }
-    </style>
 </head>
 
 <body>
@@ -56,10 +16,11 @@
         <div class="banner__logo">AeroInfo</div>
         <nav class="banner__nav">
             <ul class="nav__links">
-                <li class="link"><a href="#">Inicio</a></li>
+                <li class="link"><a href="Admin.html">Inicio</a></li>
                 <li class="link"><a href="agregarVuelos.html">Gestión de vuelos</a></li>
-                <li class="link"><a href="gestionUsuarios.html">Gestión de usuarios</a></i>
+                <li class="link"><a href="gestionUsuarios.html">Gestión de usuarios</a></li>
                 <li class="link"><a href="gestionReportes.html">Gestión de reportes</a></li>
+                <li class="link"><button onclick="window.location.href='home.html';">Salir</button></li>
             </ul>
         </nav>
     </header>

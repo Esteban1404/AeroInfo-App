@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/Admin.css"> <!-- Referencia al archivo CSS externo -->
+    <title>Gestion de reportes</title>
+</head>
+
+<body>
+    <header class="banner">
+        <div class="banner__logo">AeroInfo</div>
+        <nav class="banner__nav">
+            <ul class="nav__links">
+                <li class="link"><a href="Admin.html">Inicio</a></li>
+                <li class="link"><a href="agregarVuelos.html">Gestión de vuelos</a></li>
+                <li class="link"><a href="gestionUsuarios.html">Gestión de usuarios</a></li>
+                <li class="link"><a href="gestionReportes.html">Gestión de reportes</a></li>
+                <li class="link"><button onclick="window.location.href='home.html';">Salir</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 mb-4">
+                <div class="card h-59">
+                    <div class="card-header text-white" style="background-color: #003459;">
+                        <h1 class="text-center">Gestión de Reportes</h1>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart" width="500" height="400"></canvas> <!-- Ajusta el ancho y alto del gráfico -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Script de Chart.js -->
+    <footer>
+        <p>&copy; 2024 Aeroinfo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función que se ejecuta cuando el documento está completamente cargado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obtén el contexto del lienzo donde se dibujará el gráfico
+            var ctx = document.getElementById('myChart').getContext('2d');
+
+            // Define los datos del gráfico
+            var data = {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                datasets: [{
+                    label: 'Ventas',
+                    data: [12, 19, 3, 5, 2, 3], // Datos de ejemplo
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            // Configura las opciones del gráfico
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            // Crea el gráfico
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        });
+    </script>
+</script>
