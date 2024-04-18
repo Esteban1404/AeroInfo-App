@@ -526,10 +526,6 @@ app.get('/historial', async (req, res) => {
 });
 
 
-// Iniciar el servidor
-app.listen(port, () => {
-    console.log(`Servidor en ejecución en http://localhost:${port}`);
-});
 
 //FIN DE IMPLEMENTACIÓN SISTEMA
 
