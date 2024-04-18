@@ -5,7 +5,7 @@ const oracle = require('oracledb');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const oracleDb = require('oracledb');
-const { agregarVuelo, editarVuelo, borrarVuelo } = require('./agregarVuelos'); // Importar las funciones agregarVuelo y editarVuelo
+const { agregarVuelo, editarVuelo, borrarVuelo } = require('./funciones'); // Importar las funciones agregarVuelo y editarVuelo
 
 const app = express();
 const port = 3000;
