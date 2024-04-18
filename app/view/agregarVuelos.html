@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/Admin.css">
-    <title>Gestion de vuelos</title>
+    <title>Gestión de Vuelos</title>
+    <style>
+        .banner, .card-header {
+            background-color: #003459; /* Azul oscuro uniforme para el banner y los encabezados de los cuadros */
+        }
+        .text-white {
+            color: #ffffff;
+        }
+    </style>
 </head>
-
 <body>
-    <header class="banner">
+    <header class="banner text-white">
         <div class="banner__logo">AeroInfo</div>
         <nav class="banner__nav">
             <ul class="nav__links">
@@ -24,12 +30,12 @@
         </nav>
     </header>
 
-   <div class="container-fluid"> <!-- Contenedor fluido para ocupar todo el ancho -->
+    <div class="container mt-5">
         <div class="row justify-content-center">
-    <div class="col-md-12 mb-4">
-        <div class="card h-59">
-            <div class="card-header text-white" style="background-color: #003459;">
-                        <h1 class="text-center">Agregar Nuevo Vuelo</h1>
+            <div class="col-md-8 mb-4">
+                <div class="card">
+                    <div class="card-header text-white">
+                        <h1>Agregar Nuevo Vuelo</h1>
                     </div>
                     <div class="card-body">
                         <form id="formVuelo" action="/nuevoVuelo" method="POST">
@@ -37,103 +43,87 @@
                                 <label for="NUMERO_VUELO">Número de Vuelo:</label>
                                 <input type="text" class="form-control" id="NUMERO_VUELO" name="NUMERO_VUELO" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="DESTINO">Destino:</label>
                                 <input type="text" class="form-control" id="DESTINO" name="DESTINO" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="ESTADO">Estado:</label>
                                 <input type="text" class="form-control" id="ESTADO" name="ESTADO" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="HORA_SALIDA">Hora de Salida:</label>
                                 <input type="datetime-local" class="form-control" id="HORA_SALIDA" name="HORA_SALIDA" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="HORA_LLEGADA">Hora de Llegada:</label>
                                 <input type="datetime-local" class="form-control" id="HORA_LLEGADA" name="HORA_LLEGADA" required>
                             </div>
-
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Agregar Vuelo</button>
+                                <button type="submit" class="btn btn-success">Agregar Vuelo</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-   </div>
-    </div>
-    <div class="container-fluid"> <!-- Contenedor fluido para ocupar todo el ancho -->
-        <div class="row justify-content-center">
-    <div class="col-md-12 mb-4">
-    
-        <div class="card h-59">
-            <div class="card-header text-white" style="background-color: #003459;">
-                        <h1 class="text-center">Editar Vuelo</h1>
+
+            <div class="col-md-8 mb-4">
+                <div class="card">
+                    <div class="card-header text-white">
+                        <h1>Editar Vuelo</h1>
                     </div>
                     <div class="card-body">
-                        <form id="formVuelo" action="/editarVuelo" method="POST">
+                        <form id="formEditarVuelo" action="/editarVuelo" method="POST">
                             <div class="form-group">
                                 <label for="NUMERO_VUELO">Número de Vuelo:</label>
                                 <input type="text" class="form-control" id="NUMERO_VUELO" name="NUMERO_VUELO" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="DESTINO">Destino:</label>
                                 <input type="text" class="form-control" id="DESTINO" name="DESTINO" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="ESTADO">Estado:</label>
                                 <input type="text" class="form-control" id="ESTADO" name="ESTADO" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="HORA_SALIDA">Hora de Salida:</label>
                                 <input type="datetime-local" class="form-control" id="HORA_SALIDA" name="HORA_SALIDA" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="HORA_LLEGADA">Hora de Llegada:</label>
                                 <input type="datetime-local" class="form-control" id="HORA_LLEGADA" name="HORA_LLEGADA" required>
                             </div>
-
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-white">
+                        <h2>Borrar Vuelo</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="formBorrarVuelo" action="/borrarVuelo" method="POST">
+                            <div class="form-group">
+                                <label for="NUMERO_VUELO">ID del Vuelo a Borrar:</label>
+                                <input type="text" class="form-control" id="NUMERO_VUELO" name="NUMERO_VUELO" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-danger">Borrar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-  
-    
-            <div class="col-md-4 mb-4">
-                <div class="card h-59">
-                    <div class="card-header text-white" style="background-color: #003459;">
-                        <h2 class="text-center">Borrar Vuelo</h2>
-                    </div>
-                    <div class="card-body">
-                    <form id="formBorrarVuelo" action="/borrarVuelo" method="POST">
-                        <div class="form-group">
-                            <label for="NUMERO_VUELO">ID del Vuelo a Borrar:</label>
-                            <input type="text" class="form-control" id="NUMERO_VUELO" name="NUMERO_VUELO" required>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Borrar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-    <!-- Bootstrap JS y Popper.js -->
+
+    <!-- Bootstrap JS and Popper.js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -141,6 +131,4 @@
         <p>&copy; 2024 Aeroinfo. Todos los derechos reservados.</p>
     </footer>
 </body>
-
 </html>
-

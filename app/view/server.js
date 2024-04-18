@@ -531,4 +531,37 @@ app.listen(port, () => {
     console.log(`Servidor en ejecución en http://localhost:${port}`);
 });
 
-//FIN DE IMPLEMENTACIÓN SISTE
+//FIN DE IMPLEMENTACIÓN SISTEMA
+
+//IMPLEMENTACION DE REPORTE
+// Ruta para obtener los vuelos por mes
+app.get('/api/vuelos', async (req, res) => {
+    let connection;
+
+    try {
+        connection = await oracledb.getConnection(dbConfig);
+        const result = await connection.execute(
+            `SELECT EXTRACT(MONTH FROM FECHA_SALIDA) AS MES, COUNT(*) AS TOTAL_VUELOS
+             FROM VUELOS
+             GROUP BY EXTRACT(MONTH FROM FECHA_SALIDA)
+             ORDER BY MES`
+        );
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error al consultar la base de datos");
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Servidor ejecutándose en http://localhost:${port}`);
+});
