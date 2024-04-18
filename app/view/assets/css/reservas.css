@@ -39,9 +39,7 @@ a{
 }
 
 #tit{
-  list-style: none;
-  color: gray;
-  text-decoration: none;
+  padding-right: 25px;
 }
 .container h1 {
   margin: 0;
