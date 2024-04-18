@@ -1,85 +1,101 @@
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #003459;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
- 
-
-  .container {
-    max-width: 1200px;
-    background-color: var(--extra-light);
-    color:gray;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    top: 0;
-    z-index: 999;
-  }
-
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  nav ul li {
-    display: inline-block;
-    margin-left: 20px;
-  }
-  
-  nav ul li:first-child {
-    margin-left: 0;
-  }
-  
-  nav ul li a {
-    color: gray;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  nav ul li a:hover {
-    color: #003459;
-  }
-
-  #tblistado{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #003459;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
 
 
-    margin-left: 5%;
-    width: auto;
-    margin-top: 3%;
-    width: 20%;
-    margin-bottom: 2%;
+.container {
+  max-width: 1200px;
+  background-color: var(--extra-light);
+  color:gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  top: 0;
+  z-index: 999;
+}
 
-  }
-  
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+nav ul li:first-child {
+  margin-left: 0;
+}
+
+nav ul li a {
+  color: gray;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+nav ul li a:hover {
+  color: #003459;
+}
+
+#tblistado{
+
+
+  margin-left: 5%;
+  width: auto;
+  margin-top: 3%;
+  width: 20%;
+  margin-bottom: 2%;
+
+}
+
 .ctr{
 
-    margin:5%;
-    margin-left: 20%;
-    width: 50%;
-    padding-left: 15%;
-    text-align: center;
+  margin:5%;
+  margin-left: 20%;
+  width: 50%;
+  padding-left: 15%;
+  text-align: center;
 
-  }
+}
 
-  
-  body {
-    margin: 0;
-    padding: 0; 
-    overflow-y: scroll; /* Agrega un scrollbar vertical */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
 
-  
+body {
+  margin: 0;
+  padding: 0; 
+  overflow-y: scroll; /* Agrega un scrollbar vertical */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 100px;
+  background-image: url(../imagenes/backgroundvuelos.jpeg);
+  background-size: cover;
+  background-position: center;
+}
 
+#historial-reservas{
+
+margin-bottom: 100px;
+padding-left: 25%;
+margin-top:3%;
+position:sticky;
+
+}
+
+.card{
+
+width: 200%;
+
+
+}
 
 
