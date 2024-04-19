@@ -50,10 +50,6 @@ async function hashPassword(password) {
     }
 }
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'view', 'Inicio_Registro.html'));
-});
-
 // Ruta para manejar las solicitudes de registro de usuarios
 app.post('/registro', async (req, res) => {
     const { nombreCompleto, correoElectronico, contraseña } = req.body;
@@ -70,21 +66,20 @@ app.post('/registro', async (req, res) => {
 
         if (checkUserResult.rows[0][0] > 0) {
             // Si el correo electrónico ya está registrado, enviar un mensaje de error
-            res.status(400).send('<script>alert("El correo electrónico ya está registrado."); window.location.href = "/";</script>');
+            res.status(400).send('<script>alert("El correo electrónico ya está registrado."); window.location.href = "Inicio_Registro.html";</script>');
         } else {
             // Si el correo electrónico no está registrado, proceder con el registro
             // Hacer hash de la contraseña antes de almacenarla en la base de datos
             const hashedPassword = await hashPassword(contraseña);
-            const rolComun = 1;
-            const estadoDefecto = 1;
+
             // Insertar el nuevo usuario en la base de datos
             const insertUserResult = await connection.execute(
-                `INSERT INTO USUARIOS (NOMBRE_COMPLETO, CORREO_ELECTRONICO, PASS, ID_ROL, STATUS_LOG) VALUES (:nombreCompleto, :correoElectronico, :hashedPassword, :rolComun, :estadoDefecto)`,
-                [nombreCompleto, correoElectronico, hashedPassword, rolComun, estadoDefecto]
+                `INSERT INTO USUARIOS (NOMBRE_COMPLETO, CORREO_ELECTRONICO, CONTRASEÑA) VALUES (:nombreCompleto, :correoElectronico, :hashedPassword)`,
+                [nombreCompleto, correoElectronico, hashedPassword]
             );
 
             // Confirmar la transacción
-            await connection.commit(); 
+            await connection.commit();
 
             // Cerrar la conexión
             await connection.close();
@@ -108,7 +103,7 @@ app.post('/login', async (req, res) => {
         const { correoElectronico, contraseña } = req.body;
         let connection = await oracle.getConnection(dbConfig);
         const result = await connection.execute(
-            `SELECT NOMBRE_COMPLETO, PASS, Id_Rol FROM USUARIOS WHERE CORREO_ELECTRONICO = :correoElectronico`,
+            `SELECT NOMBRE_COMPLETO, CONTRASEÑA FROM USUARIOS WHERE CORREO_ELECTRONICO = :correoElectronico`,
             [correoElectronico]
         );
         // Verificar si se encontró un usuario con las credenciales proporcionadas
@@ -116,7 +111,6 @@ app.post('/login', async (req, res) => {
             const usuario = result.rows[0]; 
             const nombreUsuario = usuario[0];
             const hashedPassword = usuario[1]; 
-            const rol = usuario[2]; 
             // Verificar la contraseña
             const passwordMatch = await bcrypt.compare(contraseña, hashedPassword);
             if (passwordMatch) {
@@ -130,11 +124,7 @@ app.post('/login', async (req, res) => {
                     console.error('Usuario no encontrado.');
                 }
                 // Enviar un script de JavaScript para mostrar el mensaje de bienvenida y redirigir a principal.html
-                if(rol == 1){
-                    res.send(`<script>alert('¡Bienvenid@ ${nombreUsuario}!'); window.location.href = 'home.html';</script>`);
-                }else {
-                    res.send(`<script>alert('¡Bienvenid@ ${nombreUsuario}!'); window.location.href = '/admin';</script>`);   
-                }
+                res.send(`<script>alert('¡Bienvenid@ ${nombreUsuario}!'); window.location.href = 'home.html';</script>`);
             } else {
                 // Si las credenciales son incorrectas, enviar un script de JavaScript para mostrar un mensaje de error y redirigir a login.html
                 res.send("<script>alert('Correo electrónico o contraseña incorrectos.'); window.location.href = 'Inicio_Registro.html';</script>");
@@ -336,9 +326,6 @@ app.post('/verificarEquipaje', async (req, res) => {
 //  Implementacion para buscar el vuelo por medio del codigo de vuelo
 app.get('/vuelos', async (req, res) => {
     const idVuelo = req.query.idVuelo;
-    res.sendFile(path.join(__dirname, '..', 'view', 'vuelos.html'));
-
-    //Esto debe ir en un metodo post
     try {
         // Realizar la consulta en la base de datos para obtener la información del vuelo por su ID
         const connection = await oracleDb.getConnection(dbConfig);
@@ -566,7 +553,7 @@ app.get('/api/vuelos', async (req, res) => {
     let connection;
 
     try {
-        connection = await oracle.getConnection(dbConfig);
+        connection = await oracledb.getConnection(dbConfig);
         const result = await connection.execute(
             `SELECT EXTRACT(MONTH FROM FECHA_SALIDA) AS MES, COUNT(*) AS TOTAL_VUELOS
              FROM VUELOS
@@ -588,255 +575,6 @@ app.get('/api/vuelos', async (req, res) => {
         }
     }
 });
-
-//Maria Paula Arce
-
-app.get('/admin', async (req, res) => {
-   res.sendFile(path.join(__dirname, '..', 'view', 'admin.html')); 
-});
-
-app.get('/gestionVuelos', async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'view', 'agregarVuelos.html')); 
- });
-
- app.get('/reportes', async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'view', 'gestionReportes.html')); 
- })
-
- app.get('/users', async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'view', 'gestionUsuarios.html')); 
- })
-
- app.get('/addUser', async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'view', 'agregarUsuario.html')); 
- })
-
- app.get('/updateUser', async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'view', 'actualizarUsuario.html')); 
- })
-
- app.get('/eliminar', async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'view', 'eliminarUsuario.html')); 
- })
-
- app.get('/obtenerRoles', async (req, res) => {
-    let connection;
-
-    try {
-        connection = await oracle.getConnection(dbConfig);
-        // Llama al procedimiento almacenado y captura el cursor de salida
-        const procedimiento = 'BEGIN SP_LISTAR_ROLES(:roles_cursor); END;';
-        const bindVars = {
-            roles_cursor: { dir: oracle.BIND_OUT, type: oracle.CURSOR }
-        };
-        const result = await connection.execute(procedimiento, bindVars);
-
-        const resultSet = result.outBinds.roles_cursor;
-        let roles = [];
-        let row;
-        while ((row = await resultSet.getRow())) {
-            const rol = {
-                Id_Rol: row[0],
-                Rol_Desc: row[1]
-            };
-            roles.push(rol);
-        }
-        await resultSet.close();
-
-        res.json(roles);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Error al consultar la base de datos");
-    } finally {
-        if (connection) {
-            try {
-                await connection.close();
-            } catch (err) {
-                console.error(err);
-            }
-        }
-    }
-});
-
-app.post('/addUser', async (req, res) => {
-    const { NOMBRE, CORREO, PASSWORD, ROL} = req.body;
-
-    let connection;
-
-    try {
-        var pass = await hashPassword(PASSWORD);
-        connection = await oracle.getConnection(dbConfig);
-        // Llama al procedimiento almacenado y captura el cursor de salida
-        const procedimiento = 'BEGIN PKG_USUARIOS.INSERTAR_USUARIO(:NOMBRE, :CORREO, :PASSWORD, :ROL, :RESULTADO); END;';
-        const bindVars = {
-            NOMBRE: { dir: oracle.BIND_IN, type: oracle.STRING, val: NOMBRE },
-            CORREO: { dir: oracle.BIND_IN, type: oracle.STRING, val: CORREO },
-            PASSWORD: { dir: oracle.BIND_IN, type: oracle.STRING, val: pass },
-            ROL: { dir: oracle.BIND_IN, type: oracle.STRING, val: ROL },
-            RESULTADO: {dir: oracle.BIND_OUT, type: oracle.NUMBER}
-        };
-
-        const result = await connection.execute(procedimiento, bindVars);
-
-        const answer = result.outBinds.RESULTADO;
-
-        console.log(answer);
-
-        if(answer === 1){
-            res.send('<script>alert("¡Registro exitoso!"); window.location.href = "/addUser";</script>');
-        } else {
-            res.send('<script>alert("¡Error al registrar usuario!"); window.location.href = "/addUser";</script>');
-        }
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Error al consultar la base de datos");
-    } finally {
-        if (connection) {
-            try {
-                await connection.close();
-            } catch (err) {
-                console.error(err);
-            }
-        }
-    }
-});
-
-app.post('/updateUser', async (req, res) => {
-        const { ID, NOMBRE, CORREO, PASSWORD, ROL} = req.body;
-    
-        let connection;
-    
-        try {
-            var pass = await hashPassword(PASSWORD);
-            connection = await oracle.getConnection(dbConfig);
-            // Llama al procedimiento almacenado y captura el cursor de salida
-            const procedimiento = 'BEGIN PKG_USUARIOS.ACTUALIZAR_USUARIO(:ID, :NOMBRE, :CORREO, :PASSWORD, :ROL, :RESULTADO); END;';
-            const bindVars = {
-                ID: {dir: oracle.BIND_IN, type: oracle.STRING, val: ID},
-                NOMBRE: { dir: oracle.BIND_IN, type: oracle.STRING, val: NOMBRE },
-                CORREO: { dir: oracle.BIND_IN, type: oracle.STRING, val: CORREO },
-                PASSWORD: { dir: oracle.BIND_IN, type: oracle.STRING, val: pass },
-                ROL: { dir: oracle.BIND_IN, type: oracle.STRING, val: ROL },
-                RESULTADO: {dir: oracle.BIND_OUT, type: oracle.NUMBER}
-            };
-    
-            const result = await connection.execute(procedimiento, bindVars);
-    
-            const answer = result.outBinds.RESULTADO;
-    
-            console.log(answer);
-    
-            if(answer === 1){
-                res.send('<script>alert("Actualizacion exitoso!"); window.location.href = "/updateUser";</script>');
-            } else if (answer === -1) {
-                res.send('<script>alert("¡Error, el correo ingresado ya existe!"); window.location.href = "/updateUser";</script>');
-            }else{
-                res.send('<script>alert("¡Error, en el servidor"); window.location.href = "/updateUser";</script>');
-            }
-    
-        } catch (err) {
-            console.error(err);
-            res.status(500).send("Error al consultar la base de datos");
-        } finally {
-            if (connection) {
-                try {
-                    await connection.close();
-                } catch (err) {
-                    console.error(err);
-                }
-            }
-        }
-
- });
-
- app.get('/obtenerUsuarios', async (req, res) => {
-    let connection;
-
-    try {
-        connection = await oracle.getConnection(dbConfig);
-        // Llama al procedimiento almacenado y captura el cursor de salida
-        const procedimiento = 'BEGIN PKG_USUARIOS.LISTAR_USUARIOS(:userCursor); END;';
-        const bindVars = {
-            userCursor: { dir: oracle.BIND_OUT, type: oracle.CURSOR }
-        };
-        const result = await connection.execute(procedimiento, bindVars);
-
-        const resultSet = result.outBinds.userCursor;
-        let usuarios = [];
-        let row;
-        while ((row = await resultSet.getRow())) {
-            const user = {
-                ID : row[0],
-                NOMBRE : row[1],
-                CORREO : row[2],
-                PASS : row[3],
-                ROL : row[4],
-                ESTADO: row[5]
-            };
-            usuarios.push(user);
-        }
-        await resultSet.close();
-
-        res.json(usuarios);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Error al consultar la base de datos");
-    } finally {
-        if (connection) {
-            try {
-                await connection.close();
-            } catch (err) {
-                console.error(err);
-            }
-        }
-    }
-});
-
-app.post('/eliminar', async (req, res) => {
-    const { ID} = req.body;
-
-    let connection;
-
-    try {
-        connection = await oracle.getConnection(dbConfig);
-        // Llama al procedimiento almacenado y captura el cursor de salida
-        const procedimiento = 'BEGIN PKG_USUARIOS.ELIMINAR_USUARIO(:ID, :RESULTADO); END;';
-        const bindVars = {
-            ID: {dir: oracle.BIND_IN, type: oracle.STRING, val: ID},
-            RESULTADO: {dir: oracle.BIND_OUT, type: oracle.NUMBER}
-        };
-
-        const result = await connection.execute(procedimiento, bindVars);
-
-        const answer = result.outBinds.RESULTADO;
-
-        console.log(answer);
-
-        if(answer === 1){
-            res.send('<script>alert("El usuario se elimino!"); window.location.href = "/eliminar";</script>');
-        } else if (answer === -1) {
-            res.send('<script>alert("¡Error, no se pudo eliminar el usuario!"); window.location.href = "/eliminar";</script>');
-        }else{
-            res.send('<script>alert("¡Error en el servidor"); window.location.href = "/eliminar";</script>');
-        }
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Error al consultar la base de datos");
-    } finally {
-        if (connection) {
-            try {
-                await connection.close();
-            } catch (err) {
-                console.error(err);
-            }
-        }
-    }
-
-});
-
-//Maria Paula Arce
 
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en http://localhost:${port}`);

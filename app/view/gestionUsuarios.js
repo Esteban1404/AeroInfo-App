@@ -1,41 +1,71 @@
-$.ajax({
-    type: 'GET',
-    url: 'http://localhost:3000/obtenerUsuarios',
-    success: function(data){
-        console.log(data);
-        cargarUsuarios(data);
+const oracleDb = require('oracledb');
+
+// Función para agregar un nuevo usuario utilizando procedimientos almacenados
+async function agregarUsuario(req, res, connection) {
+    try {
+        const { NOMBRE, CORREO, PASSWORD, ROL } = req.body;
+
+        // Usando el procedimiento almacenado para insertar el usuario
+        const sql = `BEGIN PKG_USUARIOS.AGREGAR_USUARIO(:NOMBRE, :CORREO, :PASSWORD, :ROL); END;`;
+
+        await connection.execute(sql, {
+            NOMBRE,
+            CORREO,
+            PASSWORD,
+            ROL
+        }, { autoCommit: true });
+
+        // Enviar respuesta de éxito con redirección
+        res.status(200).send('<script>alert("Usuario agregado correctamente"); window.location.href = "gestionUsuarios.html";</script>');
+    } catch (error) {
+        console.error('Error al agregar usuario:', error);
+        // Enviar respuesta de error con popup y redirección
+        res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "gestionUsuarios.html";</script>');
     }
-});
-
-function cargarUsuarios(data){
-
-    var tabla = $('#tableUsuarios');
-
-    var tbody = $('tbody');
-
-    tbody.empty();
-    data.forEach(usuario =>{
-        var fila = $('<tr>');
-        fila.append($('<td>').text(usuario.ID));
-        fila.append($('<td>').text(usuario.NOMBRE));
-        fila.append($('<td>').text(usuario.CORREO));
-        if(usuario.ROL == 1){
-            fila.append($('<td>').text('USUARIO NORMAL'));
-        }
-        else if(usuario.ROL == 2){
-            fila.append($('<td>').text('ADMINISTRADOR'));
-        }
-        else if(usuario.ROL == 3){
-            fila.append($('<td>').text('GERENTE'));
-        }
-        if(usuario.ESTADO == 1){
-            fila.append($('<td>').text('ACTIVO'));
-        }else if(usuario.ESTADO == 0){
-            fila.append($('<td>').text('INACTIVO'));
-        }
-        tbody.append(fila);
-    });
-
-    tabla.append(tbody);
-
 }
+
+// Función para editar un usuario utilizando procedimientos almacenados
+async function editarUsuario(req, res, connection) {
+    try {
+        const { ID_USUARIO, NOMBRE, CORREO, PASSWORD, ROL } = req.body;
+
+        // Usando el procedimiento almacenado para actualizar el usuario
+        const sql = `BEGIN PKG_USUARIOS.EDITAR_USUARIO(:ID_USUARIO, :NOMBRE, :CORREO, :PASSWORD, :ROL); END;`;
+
+        await connection.execute(sql, {
+            ID_USUARIO,
+            NOMBRE,
+            CORREO,
+            PASSWORD,
+            ROL
+        }, { autoCommit: true });
+
+        // Enviar respuesta de éxito con redirección
+        res.status(200).send('<script>alert("Usuario actualizado correctamente"); window.location.href = "gestionUsuarios.html";</script>');
+    } catch (error) {
+        console.error('Error al editar usuario:', error);
+        // Enviar respuesta de error con popup y redirección
+        res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "gestionUsuarios.html";</script>');
+    }
+}
+
+// Función para eliminar un usuario utilizando procedimientos almacenados
+async function borrarUsuario(req, res, connection) {
+    try {
+        const { ID_USUARIO } = req.body;
+
+        // Usando el procedimiento almacenado para borrar el usuario
+        const sql = `BEGIN PKG_USUARIOS.BORRAR_USUARIO(:ID_USUARIO); END;`;
+
+        await connection.execute(sql, [ID_USUARIO], { autoCommit: true });
+
+        // Enviar respuesta de éxito con redirección
+        res.status(200).send('<script>alert("Usuario borrado correctamente"); window.location.href = "gestionUsuarios.html";</script>');
+    } catch (error) {
+        console.error('Error al borrar usuario:', error);
+        // Enviar respuesta de error con popup y redirección
+        res.status(500).send('<script>alert("Error interno del servidor"); window.location.href = "gestionUsuarios.html";</script>');
+    }
+}
+
+module.exports = { agregarUsuario, editarUsuario, borrarUsuario };
